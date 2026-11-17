@@ -50,7 +50,7 @@ export default function HomePage() {
 
           {/* Official Neev Emblem Hero Presentation */}
           <div className="py-0.5 flex justify-center">
-            <Logo variant="stacked" size="md" showTagline={false} showCompanySubtitle={true} />
+            <Logo variant="stacked" size="md" showTagline={false} showCompanySubtitle={false} />
           </div>
 
           {/* Master Tagline & Title */}
