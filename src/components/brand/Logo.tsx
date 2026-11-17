@@ -42,10 +42,10 @@ function AestheticBars({
   isDark?: boolean;
 }) {
   const barSizes = {
-    sm: 'w-3.5 h-[2.5px]',
-    md: 'w-5 h-[3px]',
-    lg: 'w-7 h-[4px]',
-    xl: 'w-10 h-[5px]',
+    sm: 'w-4 h-[2.5px]',
+    md: 'w-6 h-[3px]',
+    lg: 'w-8 h-[4px]',
+    xl: 'w-11 h-[5px]',
   };
 
   const gapSizes = {
@@ -71,18 +71,27 @@ export function Logo({
   variant = 'full',
   isDark = false,
 }: LogoProps) {
+  // Horizontal emblem dimensions (Navbar, Header, Footer)
   const emblemSizes = {
-    sm: 'w-8 h-7',
-    md: 'w-11 h-10',
-    lg: 'w-16 h-14',
-    xl: 'w-28 h-24',
+    sm: 'w-9 h-8 sm:w-10 sm:h-9',
+    md: 'w-12 h-11 sm:w-14 sm:h-12',
+    lg: 'w-18 h-16 sm:w-20 sm:h-18',
+    xl: 'w-30 h-26',
+  };
+
+  // Stacked hero emblem dimensions (tuned to leave a distinct visual imprint in memory)
+  const stackedEmblemSizes = {
+    sm: 'w-14 h-12',
+    md: 'w-20 h-18 sm:w-24 sm:h-21',
+    lg: 'w-28 h-24 sm:w-32 sm:h-28',
+    xl: 'w-40 h-35',
   };
 
   const textSizes = {
     sm: 'text-xl',
-    md: 'text-2xl',
-    lg: 'text-3xl',
-    xl: 'text-5xl',
+    md: 'text-2xl sm:text-3xl',
+    lg: 'text-3xl sm:text-4xl',
+    xl: 'text-5xl sm:text-6xl',
   };
 
   if (variant === 'emblem') {
@@ -103,7 +112,10 @@ export function Logo({
         className={cn('inline-flex flex-col items-center text-center group select-none', className)}
       >
         <NeevEmblem
-          className={cn(emblemSizes[size], 'transition-transform duration-200 group-hover:scale-105')}
+          className={cn(
+            stackedEmblemSizes[size],
+            'transition-transform duration-200 group-hover:scale-105 drop-shadow-md'
+          )}
           isDark={isDark}
         />
 
@@ -127,7 +139,7 @@ export function Logo({
         {showCompanySubtitle && (
           <p
             className={cn(
-              'text-[11px] mt-2 font-medium tracking-wide',
+              'text-xs mt-1.5 font-medium tracking-wide',
               isDark ? 'text-neev-forest-100/70' : 'text-neev-slate'
             )}
           >
