@@ -42,6 +42,13 @@ export interface WishPool {
   updated_at: string;
 }
 
+export interface EnrichedPool extends WishPool {
+  creator_name: string;
+  creator_avatar?: string;
+  creator_kyc_status?: string;
+  stats: PublicPoolStats;
+}
+
 export interface Contribution {
   id: string;
   pool_id: string;

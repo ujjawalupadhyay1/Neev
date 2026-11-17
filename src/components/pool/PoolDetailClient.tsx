@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { EnrichedPool } from '@/lib/mock-data';
+import { EnrichedPool } from '@/types';
 import { getCategoryCopy } from '@/lib/category-copy';
 import { formatINR, formatDate } from '@/lib/utils';
 import { UpiCheckoutDrawer } from '@/components/checkout/UpiCheckoutDrawer';

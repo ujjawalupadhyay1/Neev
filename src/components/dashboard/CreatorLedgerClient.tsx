@@ -122,53 +122,86 @@ export function CreatorLedgerClient({
             </div>
 
             {/* Quick Export Actions */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleExportCSV}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-neev-md text-xs font-semibold text-neev-charcoal bg-white hover:bg-neev-ivory-subtle border border-neev-ivory-border shadow-warm-sm transition-all"
-              >
-                <FileSpreadsheet className="w-4 h-4 text-neev-forest" />
-                <span>Export CSV Ledger</span>
-              </button>
+            {pools.length > 0 && (
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleExportCSV}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-neev-md text-xs font-semibold text-neev-charcoal bg-white hover:bg-neev-ivory-subtle border border-neev-ivory-border shadow-warm-sm transition-all"
+                >
+                  <FileSpreadsheet className="w-4 h-4 text-neev-forest" />
+                  <span>Export CSV Ledger</span>
+                </button>
 
-              <button
-                onClick={() => setShowAuditCertModal(true)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-neev-md text-xs font-semibold text-white bg-neev-forest hover:bg-neev-forest-900 shadow-warm-sm transition-all"
-              >
-                <FileText className="w-4 h-4 text-neev-amber" />
-                <span>CA Tax & Audit Bundle</span>
-              </button>
-            </div>
+                <button
+                  onClick={() => setShowAuditCertModal(true)}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-neev-md text-xs font-semibold text-white bg-neev-forest hover:bg-neev-forest-900 shadow-warm-sm transition-all"
+                >
+                  <FileText className="w-4 h-4 text-neev-amber" />
+                  <span>CA Tax & Audit Bundle</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Pool Selector Tabs */}
-          <div className="flex items-center gap-3 overflow-x-auto pt-2 border-t border-neev-ivory-border">
-            <span className="text-xs font-semibold text-neev-slate shrink-0">Your Neevs:</span>
-            {pools.map((pool) => (
-              <button
-                key={pool.id}
-                onClick={() => setSelectedPoolId(pool.id)}
-                className={cn(
-                  'px-3.5 py-1.5 rounded-neev-sm text-xs font-semibold whitespace-nowrap transition-all border',
-                  selectedPoolId === pool.id
-                    ? 'bg-neev-forest-50 border-neev-forest text-neev-forest-800 shadow-warm-sm'
-                    : 'bg-white border-neev-ivory-border text-neev-slate hover:border-neev-forest/40'
-                )}
+          {pools.length > 0 && (
+            <div className="flex items-center gap-3 overflow-x-auto pt-2 border-t border-neev-ivory-border">
+              <span className="text-xs font-semibold text-neev-slate shrink-0">Your Neevs:</span>
+              {pools.map((pool) => (
+                <button
+                  key={pool.id}
+                  onClick={() => setSelectedPoolId(pool.id)}
+                  className={cn(
+                    'px-3.5 py-1.5 rounded-neev-sm text-xs font-semibold whitespace-nowrap transition-all border',
+                    selectedPoolId === pool.id
+                      ? 'bg-neev-forest-50 border-neev-forest text-neev-forest-800 shadow-warm-sm'
+                      : 'bg-white border-neev-ivory-border text-neev-slate hover:border-neev-forest/40'
+                  )}
+                >
+                  {pool.title.slice(0, 38)}...
+                </button>
+              ))}
+              <Link
+                href="/create"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-neev-sm text-xs font-semibold text-neev-terracotta hover:bg-neev-terracotta/5 border border-dashed border-neev-terracotta/40 shrink-0"
               >
-                {pool.title.slice(0, 38)}...
-              </button>
-            ))}
-            <Link
-              href="/create"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-neev-sm text-xs font-semibold text-neev-terracotta hover:bg-neev-terracotta/5 border border-dashed border-neev-terracotta/40 shrink-0"
-            >
-              <PlusCircle className="w-3.5 h-3.5" />
-              <span>New Wish Pool</span>
-            </Link>
-          </div>
+                <PlusCircle className="w-3.5 h-3.5" />
+                <span>New Wish Pool</span>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
+      {pools.length === 0 ? (
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+          <div className="text-center py-16 px-6 bg-white rounded-neev-2xl border border-neev-ivory-border shadow-warm-sm space-y-6">
+            <div className="w-16 h-16 mx-auto rounded-full bg-neev-forest-50 border border-neev-forest-100 flex items-center justify-center text-neev-forest">
+              <Lock className="w-8 h-8 text-neev-forest" />
+            </div>
+
+            <div className="space-y-2">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-neev-charcoal">
+                You haven&apos;t created any wish pools yet
+              </h2>
+              <p className="text-xs sm:text-sm text-neev-slate max-w-md mx-auto leading-relaxed">
+                Create your first milestone or wish pool to receive direct UPI contributions. All contributions are protected by row-level security and will appear in your private ledger here.
+              </p>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/create"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-neev-md text-sm font-semibold text-white bg-neev-terracotta hover:bg-neev-terracotta-hover active:bg-neev-terracotta-active shadow-warm-md hover:shadow-warm-lg transition-all"
+              >
+                <span>Create Your First Wish Pool</span>
+                <PlusCircle className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <>
       {/* Overview Stat Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -353,6 +386,8 @@ export function CreatorLedgerClient({
           </div>
         </div>
       </section>
+      </>
+      )}
 
       {/* ============================================================== */}
       {/* MODAL 1: Contributor 1-Page Official Receipt                   */}

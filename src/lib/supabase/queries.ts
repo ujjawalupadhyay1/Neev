@@ -1,5 +1,5 @@
 import { createClient as createServerClient } from '@/lib/supabase/server';
-import { MOCK_POOLS, MOCK_CONTRIBUTIONS, EnrichedPool } from '@/lib/mock-data';
+import { EnrichedPool } from '@/types';
 
 export interface PoolWithStats extends EnrichedPool {}
 
@@ -30,10 +30,7 @@ export async function getPoolBySlug(slug: string): Promise<PoolWithStats | null>
         .single();
 
       if (poolError || !pool) {
-        console.warn('Pool not found in Supabase:', poolError?.message);
-        // Fallback to mock data if exists
-        const mock = MOCK_POOLS.find((p) => p.slug === slug);
-        return mock || null;
+        return null;
       }
 
       // Fetch stats from public_pool_stats secure view
@@ -77,9 +74,7 @@ export async function getPoolBySlug(slug: string): Promise<PoolWithStats | null>
     }
   }
 
-  // Prototype / offline fallback
-  const mock = MOCK_POOLS.find((p) => p.slug === slug) || MOCK_POOLS.find((p) => p.slug === 'aarav-ananya-wedding') || MOCK_POOLS[0];
-  return mock || null;
+  return null;
 }
 
 /**
@@ -99,7 +94,7 @@ export async function getPoolPublicMessages(poolId: string) {
         .eq('pool_id', poolId)
         .order('created_at', { ascending: false });
 
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         return data;
       }
     } catch (err) {
@@ -107,14 +102,11 @@ export async function getPoolPublicMessages(poolId: string) {
     }
   }
 
-  // Fallback to mock public contributions
-  return MOCK_CONTRIBUTIONS.filter(
-    (c) => c.pool_id === poolId && c.is_message_public && c.message
-  );
+  return [];
 }
 
 /**
- * Fetch all pools for the Explore Dreams feed.
+ * Fetch real pools for the Explore Dreams feed.
  */
 export async function getExplorePools(options?: {
   category?: string;
@@ -155,7 +147,6 @@ export async function getExplorePools(options?: {
       const { data: pools, error } = await query.order('created_at', { ascending: false });
 
       if (!error && pools && pools.length > 0) {
-        // Fetch stats for all pools
         const poolIds = pools.map((p) => p.id);
         const { data: statsList } = await supabase
           .from('public_pool_stats')
@@ -170,7 +161,7 @@ export async function getExplorePools(options?: {
           return {
             id: pool.id,
             creator_id: pool.creator_id,
-            creator_name: creator?.full_name || 'Dreamer',
+            creator_name: creator?.full_name || 'Verified Dreamer',
             creator_avatar: creator?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80',
             creator_kyc_status: creator?.kyc_status || 'verified',
             slug: pool.slug,
@@ -201,22 +192,7 @@ export async function getExplorePools(options?: {
     }
   }
 
-  // Fallback to mock data with filtering
-  let results = [...MOCK_POOLS];
-  if (options?.category && options.category !== 'all') {
-    results = results.filter((p) => p.category === options.category);
-  }
-  if (options?.visibility && options.visibility !== 'all') {
-    results = results.filter((p) => p.visibility === options.visibility);
-  }
-  if (options?.search) {
-    const s = options.search.toLowerCase();
-    results = results.filter(
-      (p) => p.title.toLowerCase().includes(s) || p.creator_name.toLowerCase().includes(s)
-    );
-  }
-
-  return results;
+  return [];
 }
 
 /**
@@ -233,7 +209,6 @@ export async function getCreatorDashboardData() {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (user) {
-        // Fetch creator's pools
         const { data: pools } = await supabase
           .from('wish_pools')
           .select('*')
@@ -242,7 +217,6 @@ export async function getCreatorDashboardData() {
 
         if (pools && pools.length > 0) {
           const poolIds = pools.map((p) => p.id);
-          // Fetch confidential contributions (RLS strictly permits this because auth.uid() = wish_pools.creator_id!)
           const { data: contributions } = await supabase
             .from('contributions')
             .select('*')
@@ -256,6 +230,13 @@ export async function getCreatorDashboardData() {
             isLive: true,
           };
         }
+
+        return {
+          user,
+          pools: [],
+          contributions: [],
+          isLive: true,
+        };
       }
     } catch (err) {
       console.error('Error in getCreatorDashboardData:', err);
@@ -264,9 +245,8 @@ export async function getCreatorDashboardData() {
 
   return {
     user: null,
-    pools: MOCK_POOLS,
-    contributions: MOCK_CONTRIBUTIONS,
+    pools: [],
+    contributions: [],
     isLive: false,
   };
 }
-

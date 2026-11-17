@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { EnrichedPool } from '@/lib/mock-data';
-import { CategoryCopyConfig } from '@/types';
+import { CategoryCopyConfig, EnrichedPool } from '@/types';
 import { formatINR } from '@/lib/utils';
 import {
   X,

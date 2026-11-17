@@ -2,8 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { EnrichedPool } from '@/lib/mock-data';
-import { PoolCategory, PoolVisibility } from '@/types';
+import { EnrichedPool, PoolCategory, PoolVisibility } from '@/types';
 import { getCategoryCopy } from '@/lib/category-copy';
 import { formatINR, formatDate } from '@/lib/utils';
 import {
@@ -16,6 +15,9 @@ import {
   Users,
   ArrowRight,
   CheckCircle,
+  PlusCircle,
+  Banknote,
+  ShieldCheck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -180,7 +182,51 @@ export function ExploreClient({ initialPools }: ExploreClientProps) {
 
       {/* Pools Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        {filteredPools.length === 0 ? (
+        {initialPools.length === 0 ? (
+          <div className="text-center py-16 px-6 bg-white rounded-neev-2xl border border-neev-ivory-border shadow-warm-sm max-w-2xl mx-auto space-y-6">
+            <div className="w-16 h-16 mx-auto rounded-full bg-neev-forest-50 border border-neev-forest-100 flex items-center justify-center text-neev-forest">
+              <Sparkles className="w-8 h-8 text-neev-amber" />
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-neev-forest-800">
+                Fresh Beginnings
+              </span>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-neev-charcoal">
+                Be the First to Lay a Neev
+              </h2>
+              <p className="text-xs sm:text-sm text-neev-slate max-w-md mx-auto leading-relaxed">
+                No public wish pools have been created yet. Be the first to start a milestone pool for your wedding, education, or dream project and receive direct UPI blessings with ₹0 platform fee.
+              </p>
+            </div>
+
+            {/* Trust highlights */}
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-neev-slate pt-1">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-neev-forest shrink-0" />
+                <span>₹0 Platform Fee</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-neev-forest shrink-0" />
+                <span>Direct Bank Settlement</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-neev-forest shrink-0" />
+                <span>Confidential Contributor Amounts</span>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/create"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-neev-md text-sm font-semibold text-white bg-neev-terracotta hover:bg-neev-terracotta-hover active:bg-neev-terracotta-active shadow-warm-md hover:shadow-warm-lg transition-all"
+              >
+                <span>Start a Wish Pool (₹0 Fee)</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        ) : filteredPools.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-neev-xl border border-neev-ivory-border p-8 space-y-4">
             <span className="text-4xl">🔍</span>
             <h3 className="font-serif text-xl font-bold text-neev-charcoal">

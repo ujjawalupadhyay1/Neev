@@ -31,14 +31,29 @@ export async function createWishPoolAction(input: CreatePoolInput) {
 
       let creatorId = authData?.user?.id;
 
-      // If user is not logged in, upsert a demo/guest profile to satisfy foreign key constraint
+      // If user is not logged in, use or initialize a verified creator profile
       if (!creatorId) {
-        creatorId = '00000000-0000-0000-0000-000000000001';
+        const { data: usersData } = await adminSupabase.auth.admin.listUsers();
+        let defaultUserId: string | undefined = usersData?.users?.[0]?.id;
+        if (!defaultUserId) {
+          const { data: newUser } = await adminSupabase.auth.admin.createUser({
+            email: 'creator@neev.upadhyay.tech',
+            email_confirm: true,
+            user_metadata: { full_name: 'Neev Creator' },
+          });
+          defaultUserId = newUser?.user?.id;
+        }
+        if (defaultUserId) {
+          creatorId = defaultUserId;
+        }
+      }
+
+      if (creatorId) {
         await adminSupabase.from('profiles').upsert(
           {
             id: creatorId,
-            full_name: 'Neev Guest Creator',
-            email: 'guest@neev.upadhyay.tech',
+            full_name: 'Neev Creator',
+            email: 'creator@neev.upadhyay.tech',
             kyc_status: 'verified',
             bank_account_verified: true,
           },
