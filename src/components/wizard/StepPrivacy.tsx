@@ -10,20 +10,10 @@ interface StepPrivacyProps {
   visibility: PoolVisibility;
   isPinRequired: boolean;
   accessPin: string;
-  panNumber: string;
-  aadhaarLast4: string;
-  legalFullName: string;
-  vKycStatus: string;
-  vKycCoordinates: string;
-  proofDocumentType: string;
-  proofDocumentName: string;
-  bankAccountNumber: string;
-  bankIfsc: string;
-  bankName: string;
-  bankBeneficiaryName: string;
-  upiVpa: string;
-  bankVerified: boolean;
-  fraudDeclarationAgreed: boolean;
+  mobileNumber: string;
+  isMobileVerified: boolean;
+  proofPhotos: string[];
+  proofNotes: string;
   onChange: (field: string, value: any) => void;
   errors: Record<string, string>;
 }
@@ -34,20 +24,10 @@ export function StepPrivacy({
   visibility,
   isPinRequired,
   accessPin,
-  panNumber,
-  aadhaarLast4,
-  legalFullName,
-  vKycStatus,
-  vKycCoordinates,
-  proofDocumentType,
-  proofDocumentName,
-  bankAccountNumber,
-  bankIfsc,
-  bankName,
-  bankBeneficiaryName,
-  upiVpa,
-  bankVerified,
-  fraudDeclarationAgreed,
+  mobileNumber,
+  isMobileVerified,
+  proofPhotos,
+  proofNotes,
   onChange,
   errors,
 }: StepPrivacyProps) {
@@ -199,33 +179,23 @@ export function StepPrivacy({
             <div className="mt-4 pt-3 border-t border-neev-ivory-border flex items-start gap-2 text-xs text-neev-forest-800">
               <ShieldCheck className="w-4 h-4 text-neev-forest shrink-0 mt-0.5" />
               <p>
-                <strong>Mandatory Anti-Fraud Verification:</strong> Public pools are vetted through 
-                Government ID, Live Video-KYC (RBI V-CIP), Supporting Milestone Proofs, and ₹1 NPCI 
-                Penny Drop to earn the official <strong>&ldquo;Verified Neev&rdquo;</strong> trust seal.
+                <strong>Zero Paperwork to Launch:</strong> Only an instant mobile OTP is required to publish. 
+                You can optionally add 1–2 milestone photos and our team will review and grant the official 
+                <strong>&ldquo;Verified Neev&rdquo;</strong> badge in the background.
               </p>
             </div>
           )}
         </div>
 
-        {/* Verification & V-KYC Suite for Public Pools */}
+        {/* Verification & Mobile Verification for Public Pools */}
         {visibility === 'public' && (
           <VKYCVerificationCard
             category={category}
             title={title}
-            panNumber={panNumber}
-            aadhaarLast4={aadhaarLast4}
-            legalFullName={legalFullName}
-            vKycStatus={vKycStatus}
-            vKycCoordinates={vKycCoordinates}
-            proofDocumentType={proofDocumentType}
-            proofDocumentName={proofDocumentName}
-            bankAccountNumber={bankAccountNumber}
-            bankIfsc={bankIfsc}
-            bankName={bankName}
-            bankBeneficiaryName={bankBeneficiaryName}
-            upiVpa={upiVpa}
-            bankVerified={bankVerified}
-            fraudDeclarationAgreed={fraudDeclarationAgreed}
+            mobileNumber={mobileNumber}
+            isMobileVerified={isMobileVerified}
+            proofPhotos={proofPhotos}
+            proofNotes={proofNotes}
             onChange={onChange}
             errors={errors}
           />

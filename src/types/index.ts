@@ -44,8 +44,11 @@ export interface WishPool {
   access_pin_hash?: string | null;
   is_pin_required: boolean;
   status: PoolStatus;
+  mobile_number?: string | null;
+  is_mobile_verified?: boolean;
   verification_status?: VerificationStatus;
   verification_badge?: VerificationBadge;
+  proof_photos?: string[] | null;
   proof_document_url?: string | null;
   proof_document_type?: string | null;
   proof_document_name?: string | null;

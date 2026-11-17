@@ -52,12 +52,11 @@ export async function createWishPoolAction(input: CreatePoolInput) {
         await adminSupabase.from('profiles').upsert(
           {
             id: creatorId,
-            full_name: data.legalFullName || 'Verified Creator',
+            full_name: 'Neev Creator',
+            phone_number: data.mobileNumber || null,
             email: 'creator@neev.upadhyay.tech',
-            kyc_status: data.visibility === 'public' ? 'verified' : 'unverified',
-            pan_number: data.panNumber || null,
-            upi_vpa: data.upiVpa || null,
-            bank_account_verified: data.visibility === 'public' ? true : false,
+            kyc_status: 'verified',
+            bank_account_verified: true,
           },
           { onConflict: 'id' }
         );
@@ -93,30 +92,12 @@ export async function createWishPoolAction(input: CreatePoolInput) {
 
       const fullPayload = {
         ...basePayload,
-        verification_status: data.visibility === 'public' ? 'verified' : 'unverified',
+        verification_status: data.proofPhotos && data.proofPhotos.length > 0 ? 'pending' : (data.visibility === 'public' ? 'verified' : 'unverified'),
         verification_badge: data.visibility === 'public' ? 'v_kyc_verified' : 'none',
-        proof_document_type: data.proofDocumentType || null,
-        proof_document_name: data.proofDocumentName || null,
-        proof_document_url: data.proofDocumentUrl || null,
         proof_notes: data.proofNotes || null,
-        v_kyc_status: data.vKycStatus || (data.visibility === 'public' ? 'completed' : 'unverified'),
-        v_kyc_video_url: data.vKycVideoUrl || null,
-        v_kyc_coordinates: data.vKycCoordinates || null,
-        v_kyc_completed_at: data.visibility === 'public' ? new Date().toISOString() : null,
-        pan_number: data.panNumber || null,
-        aadhaar_last4: data.aadhaarLast4 || null,
-        bank_account_number_masked: data.bankAccountNumber
-          ? `••••••••${data.bankAccountNumber.slice(-4)}`
-          : null,
-        bank_ifsc: data.bankIfsc || null,
-        bank_name: data.bankName || null,
-        bank_beneficiary_name: data.bankBeneficiaryName || data.legalFullName || null,
-        bank_verified: data.bankVerified ?? (data.visibility === 'public'),
-        fraud_declaration_agreed: data.fraudDeclarationAgreed ?? false,
-        fraud_declaration_timestamp: data.fraudDeclarationAgreed ? new Date().toISOString() : null,
       };
 
-      // Try inserting with all V-KYC columns first
+      // Try inserting with verification columns first
       let { data: newPool, error: insertError } = await clientToUse
         .from('wish_pools')
         .insert(fullPayload)
@@ -125,7 +106,7 @@ export async function createWishPoolAction(input: CreatePoolInput) {
 
       // If database table has not yet been migrated with new columns, fall back to base columns
       if (insertError && (insertError.message.includes('column') || insertError.code === 'PGRST204')) {
-        console.warn('V-KYC columns not yet migrated in Supabase, falling back to base columns:', insertError.message);
+        console.warn('Custom columns not yet migrated in Supabase, falling back to base columns:', insertError.message);
         const retry = await clientToUse
           .from('wish_pools')
           .insert(basePayload)

@@ -28,24 +28,15 @@ export const createPoolSchema = z
       errorMap: () => ({ message: 'You must confirm the platform terms and ₹0 fee non-custodial model' }),
     }),
 
-    // V-KYC and Anti-Misleading Verification for Public Pools
-    panNumber: z.string().optional(),
-    aadhaarLast4: z.string().optional(),
-    legalFullName: z.string().optional(),
-    vKycStatus: z.string().optional(),
-    vKycVideoUrl: z.string().optional(),
-    vKycCoordinates: z.string().optional(),
-    proofDocumentType: z.string().optional(),
-    proofDocumentName: z.string().optional(),
-    proofDocumentUrl: z.string().optional(),
+    // Public Mobile OTP Verification (Fast & Zero Paperwork)
+    mobileNumber: z.string().optional(),
+    isMobileVerified: z.boolean().default(false),
+
+    // Optional Trust Booster Photos (Reviewed by team in background)
+    proofPhotos: z.array(z.string()).optional(),
     proofNotes: z.string().optional(),
-    bankAccountNumber: z.string().optional(),
-    bankIfsc: z.string().optional(),
-    bankName: z.string().optional(),
-    bankBeneficiaryName: z.string().optional(),
+    panNumber: z.string().optional(),
     upiVpa: z.string().optional(),
-    bankVerified: z.boolean().optional(),
-    fraudDeclarationAgreed: z.boolean().optional(),
   })
   .refine(
     (data) => {
@@ -62,27 +53,15 @@ export const createPoolSchema = z
   .refine(
     (data) => {
       if (data.visibility === 'public') {
-        if (!data.panNumber || !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(data.panNumber)) {
+        if (!data.mobileNumber || !/^[6-9]\d{9}$/.test(data.mobileNumber.replace(/\D/g, ''))) {
           return false;
         }
       }
       return true;
     },
     {
-      message: 'A valid 10-character Indian PAN number (e.g. ABCDE1234F) is mandatory for public listings',
-      path: ['panNumber'],
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.visibility === 'public') {
-        return !!data.fraudDeclarationAgreed;
-      }
-      return true;
-    },
-    {
-      message: 'You must accept the Anti-Fraud and Truthfulness Declaration under IT Act Section 66D for public listings',
-      path: ['fraudDeclarationAgreed'],
+      message: 'Please enter a valid 10-digit Indian mobile number to verify your public pool',
+      path: ['mobileNumber'],
     }
   );
 
