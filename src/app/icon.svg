@@ -1,0 +1,53 @@
+<svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Squircle / Rounded Container -->
+    <linearGradient id="icon-hand-left" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E26A40" />
+      <stop offset="100%" stop-color="#933519" />
+    </linearGradient>
+    <linearGradient id="icon-hand-right" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F4AB43" />
+      <stop offset="100%" stop-color="#A85F14" />
+    </linearGradient>
+    <linearGradient id="icon-house-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F7B757" />
+      <stop offset="100%" stop-color="#DA902D" />
+    </linearGradient>
+  </defs>
+
+  <!-- Clean Warm Ivory Background Tile -->
+  <rect width="128" height="128" rx="28" fill="#FAF8F5" />
+  <rect x="1" y="1" width="126" height="126" rx="27" stroke="#E2DACD" stroke-width="2" />
+
+  <!-- Centered Emblem -->
+  <g transform="translate(14, 18) scale(0.5)">
+    <!-- Outer Left Green Petal -->
+    <path d="M 28 82 C 16 70 12 52 24 38 C 30 50 36 68 46 80 Z" fill="#1B4332" />
+    <!-- Inner Left Terracotta Petal -->
+    <path d="M 50 72 C 34 56 36 30 52 18 C 62 34 66 54 68 70 Z" fill="#C85A32" />
+    <!-- Center Top Green Crown Petal -->
+    <path d="M 100 0 C 114 20 122 46 114 70 C 100 66 100 66 86 70 C 78 46 86 20 100 0 Z" fill="#1B4332" />
+    <!-- Inner Right Terracotta Petal -->
+    <path d="M 150 72 C 166 56 164 30 148 18 C 138 34 134 54 132 70 Z" fill="#C85A32" />
+    <!-- Outer Right Green Petal -->
+    <path d="M 172 82 C 184 70 188 52 176 38 C 170 50 164 68 154 80 Z" fill="#1B4332" />
+
+    <!-- Hill Mound -->
+    <path d="M 72 108 C 82 98 118 98 128 108 Z" fill="#D98A28" />
+    <!-- Chimney -->
+    <rect x="110" y="47" width="8" height="15" fill="url(#icon-house-gold)" rx="1" />
+    <!-- House -->
+    <path d="M 100 38 L 124 58 L 120 58 L 120 98 L 80 98 L 80 58 L 76 58 Z" fill="url(#icon-house-gold)" />
+    <!-- Door -->
+    <path d="M 94 98 V 78 C 94 74.5 96.5 72 100 72 C 103.5 72 106 74.5 106 78 V 98 Z" fill="#FAF8F5" />
+
+    <!-- Left Hand -->
+    <path d="M 100 126 C 90 126 84 122 76 108 C 66 90 50 82 24 74 C 18 72 14 76 16 82 C 20 98 32 120 56 130 C 70 136 86 138 98 138 Z" fill="url(#icon-hand-left)" />
+    <!-- Right Hand -->
+    <path d="M 100 126 C 110 126 116 122 124 108 C 134 90 150 82 176 74 C 182 72 186 76 184 82 C 180 98 168 120 144 130 C 130 136 114 138 102 138 Z" fill="url(#icon-hand-right)" />
+
+    <!-- Base Bar -->
+    <rect x="68" y="146" width="64" height="6" rx="3" fill="#1B4332" />
+  </g>
+</svg>
+

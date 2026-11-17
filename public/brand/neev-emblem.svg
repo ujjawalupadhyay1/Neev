@@ -1,0 +1,109 @@
+<svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Left Hand Terracotta Gradient -->
+    <linearGradient id="emblem-hand-left" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DE673E" />
+      <stop offset="50%" stop-color="#C85A32" />
+      <stop offset="100%" stop-color="#933519" />
+    </linearGradient>
+
+    <!-- Right Hand Golden Amber Gradient -->
+    <linearGradient id="emblem-hand-right" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F2A53C" />
+      <stop offset="50%" stop-color="#D98A28" />
+      <stop offset="100%" stop-color="#A85F14" />
+    </linearGradient>
+
+    <!-- Center House Golden Gradient -->
+    <linearGradient id="emblem-house-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F4B04E" />
+      <stop offset="100%" stop-color="#D98E2A" />
+    </linearGradient>
+
+    <!-- Inner Terracotta Petal Gradient -->
+    <linearGradient id="emblem-petal-terracotta" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D9633A" />
+      <stop offset="100%" stop-color="#AC4522" />
+    </linearGradient>
+  </defs>
+
+  <!-- 1. LOTUS BACKDROP -->
+  <!-- Outer Left Green Petal -->
+  <path
+    d="M 28 82 C 16 70 12 52 24 38 C 30 50 36 68 46 80 Z"
+    fill="#1B4332"
+  />
+
+  <!-- Inner Left Terracotta Petal -->
+  <path
+    d="M 50 72 C 34 56 36 30 52 18 C 62 34 66 54 68 70 Z"
+    fill="url(#emblem-petal-terracotta)"
+  />
+
+  <!-- Center Top Green Crown Petal -->
+  <path
+    d="M 100 0 C 114 20 122 46 114 70 C 100 66 100 66 86 70 C 78 46 86 20 100 0 Z"
+    fill="#1B4332"
+  />
+
+  <!-- Inner Right Terracotta Petal -->
+  <path
+    d="M 150 72 C 166 56 164 30 148 18 C 138 34 134 54 132 70 Z"
+    fill="url(#emblem-petal-terracotta)"
+  />
+
+  <!-- Outer Right Green Petal -->
+  <path
+    d="M 172 82 C 184 70 188 52 176 38 C 170 50 164 68 154 80 Z"
+    fill="#1B4332"
+  />
+
+  <!-- 2. CENTRAL HOUSE & HILL -->
+  <!-- Hill Mound -->
+  <path
+    d="M 72 108 C 82 98 118 98 128 108 Z"
+    fill="#D98A28"
+  />
+
+  <!-- Chimney -->
+  <rect x="110" y="47" width="8" height="15" fill="url(#emblem-house-gold)" rx="1" />
+
+  <!-- Main House Body & Roof -->
+  <path
+    d="M 100 38 L 124 58 L 120 58 L 120 98 L 80 98 L 80 58 L 76 58 Z"
+    fill="url(#emblem-house-gold)"
+  />
+
+  <!-- Arched Door Cutout -->
+  <path
+    d="M 94 98 V 78 C 94 74.5 96.5 72 100 72 C 103.5 72 106 74.5 106 78 V 98 Z"
+    fill="#FAF8F5"
+  />
+
+  <!-- 3. CRADLING HANDS -->
+  <!-- Left Hand (Terracotta) -->
+  <path
+    d="M 100 126 C 90 126 84 122 76 108 C 66 90 50 82 24 74 C 18 72 14 76 16 82 C 20 98 32 120 56 130 C 70 136 86 138 98 138 Z"
+    fill="url(#emblem-hand-left)"
+  />
+  <path
+    d="M 98 138 C 88 136 78 128 72 118 C 64 104 50 96 34 94 C 44 110 60 126 82 134 C 90 137 98 138 100 138 Z"
+    fill="#933519"
+    opacity="0.35"
+  />
+
+  <!-- Right Hand (Golden Amber) -->
+  <path
+    d="M 100 126 C 110 126 116 122 124 108 C 134 90 150 82 176 74 C 182 72 186 76 184 82 C 180 98 168 120 144 130 C 130 136 114 138 102 138 Z"
+    fill="url(#emblem-hand-right)"
+  />
+  <path
+    d="M 102 138 C 112 136 122 128 128 118 C 136 104 150 96 166 94 C 156 110 140 126 118 134 C 110 137 102 138 100 138 Z"
+    fill="#A85F14"
+    opacity="0.35"
+  />
+
+  <!-- 4. FOUNDATION BASE BAR -->
+  <rect x="68" y="146" width="64" height="6" rx="3" fill="#1B4332" />
+</svg>
+
