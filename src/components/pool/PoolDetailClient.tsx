@@ -314,27 +314,6 @@ export function PoolDetailClient({ pool, initialMessages = [] }: PoolDetailClien
               </div>
             )}
           </div>
-
-          {/* Contextual Sponsor Slot Below The Fold (Section 1 of GEMINI.md) */}
-          <div className="p-6 rounded-neev-xl bg-neev-ivory-subtle border border-neev-ivory-border text-center space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neev-slate">
-              Milestone Brand Partner
-            </span>
-            <h4 className="font-serif text-base font-bold text-neev-charcoal">
-              Exclusive Vouchers for {categoryConfig.badgeLabel}
-            </h4>
-            <p className="text-xs text-neev-slate max-w-lg mx-auto">
-              Neev stays 100% free by partnering with curated brands. Explore special offers below to complement this milestone.
-            </p>
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs">
-              <span className="px-3 py-1 rounded-full bg-white border border-neev-ivory-border text-neev-forest-800 font-semibold">
-                MakeMyTrip Honeymoon Grant
-              </span>
-              <span className="px-3 py-1 rounded-full bg-white border border-neev-ivory-border text-neev-forest-800 font-semibold">
-                Pepperfry Home Furniture
-              </span>
-            </div>
-          </div>
         </div>
       )}
 

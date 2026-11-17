@@ -290,39 +290,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Below-The-Fold Contextual Brand Sponsors Demonstration */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <div className="p-8 rounded-neev-xl bg-neev-ivory-subtle border border-neev-ivory-border text-center space-y-4">
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-1.5 rounded-full bg-[#E2ECE6] text-neev-forest-900 border border-[#BED4C7] shadow-warm-sm">
-            <Gift className="w-3.5 h-3.5 text-neev-terracotta" />
-            <span>How We Keep Neev 100% Free For You</span>
-          </div>
-          <h2 className="font-serif text-2xl font-bold text-neev-charcoal">
-            Contextual Milestone Brand Grants & Offers
-          </h2>
-          <p className="text-xs text-neev-slate max-w-xl mx-auto leading-relaxed">
-            Neev earns ₹0 from your shagun or gifts. Instead, curated brand partners (MakeMyTrip for travel, Apple/Croma for laptops, Pepperfry for new homes) offer optional discounts below the fold.
-          </p>
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-6 text-xs text-neev-slate/70 font-semibold tracking-wider uppercase">
-            <span>MakeMyTrip Travel Grants</span>
-            <span>•</span>
-            <span>Croma & Apple Campus Offers</span>
-            <span>•</span>
-            <span>Tanishq Wedding Vouchers</span>
-          </div>
-        </div>
-      </section>
-
       {/* Bottom CTA Banner */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div className="p-10 rounded-neev-xl bg-neev-forest text-white text-center space-y-6 shadow-warm-xl relative overflow-hidden">
-          <Logo variant="stacked" size="md" isDark={true} showCompanySubtitle={true} className="mx-auto relative z-10" />
+          <Logo variant="stacked" size="md" isDark={true} showCompanySubtitle={false} className="mx-auto relative z-10" />
           <div className="space-y-2 relative z-10">
             <h2 className="font-serif text-3xl sm:text-4xl font-bold">
               Ready to build the foundation for your dream?
             </h2>
             <p className="text-neev-forest-100 text-sm max-w-xl mx-auto">
-              Create your milestone pool in under 2 minutes. Receive direct UPI blessings with zero deduction.
+              Create your milestone pool in under 2 minutes. Receive direct UPI blessings with zero platform fee.
             </p>
           </div>
           <div className="relative z-10">
