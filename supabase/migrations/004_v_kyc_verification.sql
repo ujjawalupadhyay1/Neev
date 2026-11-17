@@ -35,3 +35,4 @@ ALTER TABLE public.profiles
 COMMENT ON COLUMN public.wish_pools.verification_badge IS 'Verified badge tier: none, v_kyc_verified, institutional_verified';
 COMMENT ON COLUMN public.wish_pools.v_kyc_status IS 'Video KYC liveness status: unverified, recording, completed';
 COMMENT ON COLUMN public.wish_pools.fraud_declaration_agreed IS 'Solemn truthfulness affirmation under IT Act 2000 Section 66D';
+

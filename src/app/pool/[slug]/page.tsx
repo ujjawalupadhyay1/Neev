@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { getPoolBySlug, getPoolPublicMessages } from '@/lib/supabase/queries';
 import { PoolDetailClient } from '@/components/pool/PoolDetailClient';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: {
     slug: string;

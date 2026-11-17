@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { getCreatorDashboardData } from '@/lib/supabase/queries';
 import { CreatorLedgerClient } from '@/components/dashboard/CreatorLedgerClient';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Creator Private Ledger & CA Tax Audit — Neev',
   description:

@@ -170,3 +170,4 @@ export function TrustVerificationModal({ pool, onClose }: TrustVerificationModal
     </div>
   );
 }
+
