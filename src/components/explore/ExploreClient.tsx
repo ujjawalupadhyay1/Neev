@@ -20,6 +20,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { TrustVerificationModal } from '@/components/brand/TrustVerificationModal';
 
 interface ExploreClientProps {
   initialPools: EnrichedPool[];
@@ -29,6 +30,7 @@ export function ExploreClient({ initialPools }: ExploreClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedVisibility, setSelectedVisibility] = useState<'all' | PoolVisibility>('all');
   const [selectedCategory, setSelectedCategory] = useState<'all' | PoolCategory>('all');
+  const [selectedTrustPool, setSelectedTrustPool] = useState<EnrichedPool | null>(null);
 
   const filteredPools = useMemo(() => {
     return initialPools.filter((pool) => {
@@ -305,15 +307,32 @@ export function ExploreClient({ initialPools }: ExploreClientProps) {
                         <img
                           src={pool.creator_avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80'}
                           alt={pool.creator_name}
-                          className="w-8 h-8 rounded-full object-cover border border-neev-ivory-border"
+                          className="w-8 h-8 rounded-full object-cover border border-neev-ivory-border shrink-0"
                         />
-                        <div className="leading-tight">
-                          <p className="text-xs font-semibold text-neev-charcoal flex items-center gap-1">
-                            <span>{pool.creator_name}</span>
-                            <CheckCircle className="w-3 h-3 text-neev-forest" />
-                          </p>
+                        <div className="leading-tight flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1">
+                            <p className="text-xs font-semibold text-neev-charcoal truncate flex items-center gap-1">
+                              <span>{pool.creator_name}</span>
+                              <CheckCircle className="w-3 h-3 text-neev-forest shrink-0" />
+                            </p>
+                            {(pool.visibility === 'public' || pool.verification_badge === 'v_kyc_verified') && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setSelectedTrustPool(pool);
+                                }}
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-200 transition-colors shadow-warm-sm shrink-0"
+                                title="Click to view full V-KYC and authenticity report"
+                              >
+                                <ShieldCheck className="w-3 h-3 text-emerald-700" />
+                                <span>V-KYC Verified</span>
+                              </button>
+                            )}
+                          </div>
                           {pool.event_date && (
-                            <p className="text-[11px] text-neev-slate flex items-center gap-1">
+                            <p className="text-[11px] text-neev-slate flex items-center gap-1 mt-0.5">
                               <Calendar className="w-3 h-3" />
                               <span>{formatDate(pool.event_date)}</span>
                             </p>
@@ -383,6 +402,14 @@ export function ExploreClient({ initialPools }: ExploreClientProps) {
           </div>
         )}
       </section>
+
+      {/* Trust & Verification Dossier Modal */}
+      {selectedTrustPool && (
+        <TrustVerificationModal
+          pool={selectedTrustPool}
+          onClose={() => setSelectedTrustPool(null)}
+        />
+      )}
     </div>
   );
 }

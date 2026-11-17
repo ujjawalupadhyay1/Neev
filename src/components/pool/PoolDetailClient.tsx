@@ -19,6 +19,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { TrustVerificationModal } from '@/components/brand/TrustVerificationModal';
 
 interface PublicMessage {
   id: string;
@@ -43,6 +44,7 @@ export function PoolDetailClient({ pool, initialMessages = [] }: PoolDetailClien
 
   // Checkout Drawer State
   const [checkoutDrawerOpen, setCheckoutDrawerOpen] = useState(false);
+  const [showTrustModal, setShowTrustModal] = useState(false);
 
   // Handle PIN verification
   const handleVerifyPin = () => {
@@ -188,8 +190,21 @@ export function PoolDetailClient({ pool, initialMessages = [] }: PoolDetailClien
                 <h1 className="font-serif text-2xl sm:text-4xl font-bold text-neev-charcoal leading-tight">
                   {pool.title}
                 </h1>
-                <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-neev-slate">
+                <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-neev-slate">
                   <span>Created by <strong>{pool.creator_name}</strong></span>
+
+                  {(pool.visibility === 'public' || pool.verification_badge === 'v_kyc_verified') && (
+                    <button
+                      type="button"
+                      onClick={() => setShowTrustModal(true)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-200 transition-colors shadow-warm-sm"
+                      title="Inspect full V-KYC and authenticity report"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-emerald-700" />
+                      <span>Verified Neev (V-KYC Verified)</span>
+                    </button>
+                  )}
+
                   {pool.event_date && (
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-neev-slate" />
@@ -324,6 +339,14 @@ export function PoolDetailClient({ pool, initialMessages = [] }: PoolDetailClien
         pool={pool}
         categoryConfig={categoryConfig}
       />
+
+      {/* Trust & Verification Dossier Modal */}
+      {showTrustModal && (
+        <TrustVerificationModal
+          pool={pool}
+          onClose={() => setShowTrustModal(false)}
+        />
+      )}
     </div>
   );
 }

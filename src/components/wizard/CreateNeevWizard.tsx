@@ -48,6 +48,25 @@ export function CreateNeevWizard() {
     isPinRequired: false,
     accessPin: '',
     agreedToTerms: false,
+
+    // Verification & V-KYC State for Public Pools
+    panNumber: '',
+    aadhaarLast4: '',
+    legalFullName: '',
+    vKycStatus: 'unverified',
+    vKycVideoUrl: '',
+    vKycCoordinates: '',
+    proofDocumentType: 'wedding_invitation',
+    proofDocumentName: '',
+    proofDocumentUrl: '',
+    proofNotes: '',
+    bankAccountNumber: '',
+    bankIfsc: '',
+    bankName: '',
+    bankBeneficiaryName: '',
+    upiVpa: '',
+    bankVerified: false,
+    fraudDeclarationAgreed: false,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -85,6 +104,25 @@ export function CreateNeevWizard() {
       if (formData.visibility === 'invite_only' && formData.isPinRequired) {
         if (!formData.accessPin || !/^\d{4}$/.test(formData.accessPin)) {
           newErrors.accessPin = 'Please enter a valid 4-digit numeric PIN';
+        }
+      } else if (formData.visibility === 'public') {
+        if (!formData.legalFullName || formData.legalFullName.trim().length < 3) {
+          newErrors.legalFullName = 'Please enter your full legal name as per Government ID';
+        }
+        if (!formData.panNumber || !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNumber)) {
+          newErrors.panNumber = 'A valid 10-character PAN number (e.g. ABCDE1234F) is required for public pools';
+        }
+        if (formData.vKycStatus !== 'completed') {
+          newErrors.vKycStatus = 'Please complete the 5-second Video-KYC liveness check to verify creator identity';
+        }
+        if (!formData.proofDocumentName) {
+          newErrors.proofDocumentName = 'Please upload official supporting documentation for this milestone';
+        }
+        if (!formData.bankVerified || !formData.bankAccountNumber || !formData.bankIfsc) {
+          newErrors.bankVerified = 'Please enter bank details and run the ₹1 Penny Drop verification';
+        }
+        if (!formData.fraudDeclarationAgreed) {
+          newErrors.fraudDeclarationAgreed = 'You must affirm the Anti-Fraud declaration under IT Act Section 66D';
         }
       }
     } else if (currentStep === 4) {
@@ -228,9 +266,25 @@ export function CreateNeevWizard() {
 
         {currentStep === 3 && (
           <StepPrivacy
+            category={formData.category}
+            title={formData.title}
             visibility={formData.visibility}
             isPinRequired={formData.isPinRequired}
             accessPin={formData.accessPin}
+            panNumber={formData.panNumber}
+            aadhaarLast4={formData.aadhaarLast4}
+            legalFullName={formData.legalFullName}
+            vKycStatus={formData.vKycStatus}
+            vKycCoordinates={formData.vKycCoordinates}
+            proofDocumentType={formData.proofDocumentType}
+            proofDocumentName={formData.proofDocumentName}
+            bankAccountNumber={formData.bankAccountNumber}
+            bankIfsc={formData.bankIfsc}
+            bankName={formData.bankName}
+            bankBeneficiaryName={formData.bankBeneficiaryName}
+            upiVpa={formData.upiVpa}
+            bankVerified={formData.bankVerified}
+            fraudDeclarationAgreed={formData.fraudDeclarationAgreed}
             onChange={handleFieldChange}
             errors={errors}
           />
@@ -246,6 +300,11 @@ export function CreateNeevWizard() {
             coverImageUrl={formData.coverImageUrl}
             visibility={formData.visibility}
             isPinRequired={formData.isPinRequired}
+            legalFullName={formData.legalFullName}
+            panNumber={formData.panNumber}
+            proofDocumentName={formData.proofDocumentName}
+            vKycStatus={formData.vKycStatus}
+            bankVerified={formData.bankVerified}
             agreedToTerms={formData.agreedToTerms}
             onAgreeChange={(agreed) => handleFieldChange('agreedToTerms', agreed)}
             error={errors.agreedToTerms || errors.submit}

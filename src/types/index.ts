@@ -10,6 +10,10 @@ export type ContributionStatus = 'initiated' | 'pending' | 'success' | 'failed' 
 
 export type KYCStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
 
+export type VerificationStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
+
+export type VerificationBadge = 'none' | 'v_kyc_verified' | 'institutional_verified';
+
 export interface Profile {
   id: string;
   full_name: string;
@@ -18,8 +22,10 @@ export interface Profile {
   avatar_url?: string | null;
   kyc_status: KYCStatus;
   pan_number?: string | null;
+  aadhaar_last4?: string | null;
   upi_vpa?: string | null;
   bank_account_verified: boolean;
+  v_kyc_verified_at?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -38,6 +44,23 @@ export interface WishPool {
   access_pin_hash?: string | null;
   is_pin_required: boolean;
   status: PoolStatus;
+  verification_status?: VerificationStatus;
+  verification_badge?: VerificationBadge;
+  proof_document_url?: string | null;
+  proof_document_type?: string | null;
+  proof_document_name?: string | null;
+  v_kyc_status?: string | null;
+  v_kyc_video_url?: string | null;
+  v_kyc_coordinates?: string | null;
+  v_kyc_completed_at?: string | null;
+  pan_number?: string | null;
+  aadhaar_last4?: string | null;
+  bank_account_number_masked?: string | null;
+  bank_ifsc?: string | null;
+  bank_name?: string | null;
+  bank_beneficiary_name?: string | null;
+  bank_verified?: boolean;
+  fraud_declaration_agreed?: boolean;
   created_at: string;
   updated_at: string;
 }

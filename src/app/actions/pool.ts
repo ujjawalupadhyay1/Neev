@@ -52,10 +52,12 @@ export async function createWishPoolAction(input: CreatePoolInput) {
         await adminSupabase.from('profiles').upsert(
           {
             id: creatorId,
-            full_name: 'Neev Creator',
+            full_name: data.legalFullName || 'Verified Creator',
             email: 'creator@neev.upadhyay.tech',
-            kyc_status: 'verified',
-            bank_account_verified: true,
+            kyc_status: data.visibility === 'public' ? 'verified' : 'unverified',
+            pan_number: data.panNumber || null,
+            upi_vpa: data.upiVpa || null,
+            bank_account_verified: data.visibility === 'public' ? true : false,
           },
           { onConflict: 'id' }
         );
@@ -74,24 +76,64 @@ export async function createWishPoolAction(input: CreatePoolInput) {
 
       const clientToUse = authData?.user ? supabase : adminSupabase;
 
-      const { data: newPool, error: insertError } = await clientToUse
+      const basePayload = {
+        creator_id: creatorId,
+        slug,
+        title: data.title,
+        category: data.category,
+        target_amount: data.targetAmount,
+        event_date: data.eventDate || null,
+        story: data.story,
+        cover_image_url: data.coverImageUrl || null,
+        visibility: data.visibility,
+        is_pin_required: data.isPinRequired,
+        access_pin_hash: data.isPinRequired ? data.accessPin : null,
+        status: 'active',
+      };
+
+      const fullPayload = {
+        ...basePayload,
+        verification_status: data.visibility === 'public' ? 'verified' : 'unverified',
+        verification_badge: data.visibility === 'public' ? 'v_kyc_verified' : 'none',
+        proof_document_type: data.proofDocumentType || null,
+        proof_document_name: data.proofDocumentName || null,
+        proof_document_url: data.proofDocumentUrl || null,
+        proof_notes: data.proofNotes || null,
+        v_kyc_status: data.vKycStatus || (data.visibility === 'public' ? 'completed' : 'unverified'),
+        v_kyc_video_url: data.vKycVideoUrl || null,
+        v_kyc_coordinates: data.vKycCoordinates || null,
+        v_kyc_completed_at: data.visibility === 'public' ? new Date().toISOString() : null,
+        pan_number: data.panNumber || null,
+        aadhaar_last4: data.aadhaarLast4 || null,
+        bank_account_number_masked: data.bankAccountNumber
+          ? `••••••••${data.bankAccountNumber.slice(-4)}`
+          : null,
+        bank_ifsc: data.bankIfsc || null,
+        bank_name: data.bankName || null,
+        bank_beneficiary_name: data.bankBeneficiaryName || data.legalFullName || null,
+        bank_verified: data.bankVerified ?? (data.visibility === 'public'),
+        fraud_declaration_agreed: data.fraudDeclarationAgreed ?? false,
+        fraud_declaration_timestamp: data.fraudDeclarationAgreed ? new Date().toISOString() : null,
+      };
+
+      // Try inserting with all V-KYC columns first
+      let { data: newPool, error: insertError } = await clientToUse
         .from('wish_pools')
-        .insert({
-          creator_id: creatorId,
-          slug,
-          title: data.title,
-          category: data.category,
-          target_amount: data.targetAmount,
-          event_date: data.eventDate || null,
-          story: data.story,
-          cover_image_url: data.coverImageUrl || null,
-          visibility: data.visibility,
-          is_pin_required: data.isPinRequired,
-          access_pin_hash: data.isPinRequired ? data.accessPin : null,
-          status: 'active',
-        })
+        .insert(fullPayload)
         .select()
         .single();
+
+      // If database table has not yet been migrated with new columns, fall back to base columns
+      if (insertError && (insertError.message.includes('column') || insertError.code === 'PGRST204')) {
+        console.warn('V-KYC columns not yet migrated in Supabase, falling back to base columns:', insertError.message);
+        const retry = await clientToUse
+          .from('wish_pools')
+          .insert(basePayload)
+          .select()
+          .single();
+        newPool = retry.data;
+        insertError = retry.error;
+      }
 
       if (insertError) {
         console.error('Error inserting pool into database:', insertError);

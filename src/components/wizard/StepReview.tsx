@@ -22,6 +22,11 @@ interface StepReviewProps {
   coverImageUrl: string;
   visibility: PoolVisibility;
   isPinRequired: boolean;
+  legalFullName?: string;
+  panNumber?: string;
+  proofDocumentName?: string;
+  vKycStatus?: string;
+  bankVerified?: boolean;
   agreedToTerms: boolean;
   onAgreeChange: (agreed: boolean) => void;
   error?: string;
@@ -36,6 +41,11 @@ export function StepReview({
   coverImageUrl,
   visibility,
   isPinRequired,
+  legalFullName,
+  panNumber,
+  proofDocumentName,
+  vKycStatus,
+  bankVerified,
   agreedToTerms,
   onAgreeChange,
   error,
@@ -146,6 +156,44 @@ export function StepReview({
           </div>
         </div>
       </div>
+
+      {/* V-KYC & Trust Seal Review Box for Public Pools */}
+      {visibility === 'public' && (
+        <div className="p-5 rounded-neev-xl bg-gradient-to-r from-emerald-50 to-white border-2 border-emerald-200 shadow-warm-sm space-y-3 text-left">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center">
+                <ShieldCheck className="w-4 h-4" />
+              </span>
+              <h4 className="font-serif text-base font-bold text-emerald-950">
+                Verified Neev Tag Awarded
+              </h4>
+            </div>
+            <span className="px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[11px] shadow-warm-sm">
+              ✓ V-KYC Verified
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs text-emerald-900">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+              <span><strong>Creator:</strong> {legalFullName || 'Verified Creator'} ({panNumber || 'PAN Verified'})</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+              <span><strong>V-CIP Liveness:</strong> Live Video Check Passed</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+              <span><strong>Milestone Proof:</strong> {proofDocumentName || 'Document Verified'}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+              <span><strong>Settlement:</strong> NPCI Penny Drop Verified</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 3 Core Guarantees Matrix */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

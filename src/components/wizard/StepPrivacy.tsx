@@ -1,20 +1,53 @@
 import React from 'react';
-import { PoolVisibility } from '@/types';
+import { PoolCategory, PoolVisibility } from '@/types';
 import { Lock, Globe, KeyRound, ShieldAlert, ShieldCheck, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { VKYCVerificationCard } from './VKYCVerificationCard';
 
 interface StepPrivacyProps {
+  category: PoolCategory;
+  title: string;
   visibility: PoolVisibility;
   isPinRequired: boolean;
   accessPin: string;
+  panNumber: string;
+  aadhaarLast4: string;
+  legalFullName: string;
+  vKycStatus: string;
+  vKycCoordinates: string;
+  proofDocumentType: string;
+  proofDocumentName: string;
+  bankAccountNumber: string;
+  bankIfsc: string;
+  bankName: string;
+  bankBeneficiaryName: string;
+  upiVpa: string;
+  bankVerified: boolean;
+  fraudDeclarationAgreed: boolean;
   onChange: (field: string, value: any) => void;
   errors: Record<string, string>;
 }
 
 export function StepPrivacy({
+  category,
+  title,
   visibility,
   isPinRequired,
   accessPin,
+  panNumber,
+  aadhaarLast4,
+  legalFullName,
+  vKycStatus,
+  vKycCoordinates,
+  proofDocumentType,
+  proofDocumentName,
+  bankAccountNumber,
+  bankIfsc,
+  bankName,
+  bankBeneficiaryName,
+  upiVpa,
+  bankVerified,
+  fraudDeclarationAgreed,
   onChange,
   errors,
 }: StepPrivacyProps) {
@@ -163,14 +196,40 @@ export function StepPrivacy({
           </div>
 
           {visibility === 'public' && (
-            <div className="mt-4 pt-3 border-t border-neev-ivory-border flex items-start gap-2 text-xs text-neev-slate">
-              <ShieldAlert className="w-4 h-4 text-neev-amber shrink-0 mt-0.5" />
+            <div className="mt-4 pt-3 border-t border-neev-ivory-border flex items-start gap-2 text-xs text-neev-forest-800">
+              <ShieldCheck className="w-4 h-4 text-neev-forest shrink-0 mt-0.5" />
               <p>
-                To maintain trust and prevent misuse, public listings undergo rapid automated Aadhaar/PAN KYC before appearing on the public Explore feed.
+                <strong>Mandatory Anti-Fraud Verification:</strong> Public pools are vetted through 
+                Government ID, Live Video-KYC (RBI V-CIP), Supporting Milestone Proofs, and ₹1 NPCI 
+                Penny Drop to earn the official <strong>&ldquo;Verified Neev&rdquo;</strong> trust seal.
               </p>
             </div>
           )}
         </div>
+
+        {/* Verification & V-KYC Suite for Public Pools */}
+        {visibility === 'public' && (
+          <VKYCVerificationCard
+            category={category}
+            title={title}
+            panNumber={panNumber}
+            aadhaarLast4={aadhaarLast4}
+            legalFullName={legalFullName}
+            vKycStatus={vKycStatus}
+            vKycCoordinates={vKycCoordinates}
+            proofDocumentType={proofDocumentType}
+            proofDocumentName={proofDocumentName}
+            bankAccountNumber={bankAccountNumber}
+            bankIfsc={bankIfsc}
+            bankName={bankName}
+            bankBeneficiaryName={bankBeneficiaryName}
+            upiVpa={upiVpa}
+            bankVerified={bankVerified}
+            fraudDeclarationAgreed={fraudDeclarationAgreed}
+            onChange={onChange}
+            errors={errors}
+          />
+        )}
       </div>
     </div>
   );
