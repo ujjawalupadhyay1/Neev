@@ -13,30 +13,10 @@ import {
   Banknote,
   Gift,
 } from 'lucide-react';
-import { CATEGORY_COPY_MAP } from '@/lib/category-copy';
-import { PoolCategory } from '@/types';
-import { Logo, NeevEmblem } from '@/components/brand/Logo';
+import { Logo } from '@/components/brand/Logo';
+import { cn } from '@/lib/utils';
 
 export default function HomePage() {
-  const categories: { key: PoolCategory; icon: React.ReactNode }[] = [
-    {
-      key: 'wedding',
-      icon: <HeartHandshake className="w-8 h-8 text-neev-terracotta" />,
-    },
-    {
-      key: 'education',
-      icon: <GraduationCap className="w-8 h-8 text-neev-forest" />,
-    },
-    {
-      key: 'milestone',
-      icon: <Sparkles className="w-8 h-8 text-neev-amber" />,
-    },
-    {
-      key: 'universal',
-      icon: <Compass className="w-8 h-8 text-neev-charcoal" />,
-    },
-  ];
-
   return (
     <div className="space-y-16 pb-20">
       {/* Hero Section — Tightened above-the-fold layout */}
@@ -125,74 +105,123 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Category-Adaptive Showcase Section */}
-      <section id="categories" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* Category Milestones Section */}
+      <section id="categories" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-widest text-neev-terracotta">
-            Category-Adaptive Experience
+          <span className="text-xs font-bold uppercase tracking-widest text-neev-forest-800">
+            Lifelong Milestones
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neev-charcoal">
-            Tailored Language for Every Milestone
+            Designed for Life’s Greatest Beginnings
           </h2>
-          <p className="text-sm text-neev-slate">
-            We never use wedding-only words like &ldquo;Shagun&rdquo; on an education goal. Every category features dedicated copy, contributor metrics, and clean receipts.
+          <p className="text-xs sm:text-sm text-neev-slate leading-relaxed">
+            From sacred wedding shagun to college tuition and first home down payments — celebrate every turning point with direct UPI blessings and ₹0 platform fee.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map(({ key, icon }) => {
-            const config = CATEGORY_COPY_MAP[key];
-
-            return (
-              <div
-                key={key}
-                className="p-6 rounded-neev-xl bg-white border border-neev-ivory-border shadow-warm-sm hover:shadow-warm-md hover:border-neev-forest/40 transition-all flex flex-col justify-between"
-              >
-                <div className="space-y-4">
+          {[
+            {
+              key: 'wedding',
+              title: 'Weddings & Nuptials',
+              badge: '💍 Weddings',
+              tagline: 'Aashirvaad & Shagun',
+              description:
+                'Invite loved ones to send traditional shagun directly into your bank via UPI, replacing awkward cash envelopes and redundant boxed gifts.',
+              highlights: ['Direct UPI Shagun', 'Confidential Rupee Gifts', '1-Page PDF Receipt'],
+              icon: <HeartHandshake className="w-6 h-6 text-neev-terracotta" />,
+              ctaLabel: 'Start Wedding Shagun',
+              badgeBg: 'bg-rose-50 text-rose-800 border-rose-200',
+            },
+            {
+              key: 'education',
+              title: 'Education & Career',
+              badge: '🎓 Education',
+              tagline: 'Academic Grants & Laptops',
+              description:
+                'Empower your learning goals. Pool support from family, mentors, and well-wishers for tuition, study laptops, thesis workstations, or entrance fees.',
+              highlights: ['Laptops & Tuition Funds', 'Direct Student Grants', '100% Free for Students'],
+              icon: <GraduationCap className="w-6 h-6 text-neev-forest" />,
+              ctaLabel: 'Start Education Fund',
+              badgeBg: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+            },
+            {
+              key: 'milestone',
+              title: 'Milestones & Home',
+              badge: '🏡 Life Milestones',
+              tagline: 'Home Foundations & Wishes',
+              description:
+                'Celebrate life’s major chapters. Rally collective blessings for your first home down payment, parenthood, family relocations, or 30th birthday.',
+              highlights: ['First Home Down Payment', 'Collective Family Love', 'CA Audit Ledger'],
+              icon: <Sparkles className="w-6 h-6 text-neev-amber" />,
+              ctaLabel: 'Start Milestone Pool',
+              badgeBg: 'bg-amber-50 text-amber-800 border-amber-200',
+            },
+            {
+              key: 'universal',
+              title: 'Universal Dreams',
+              badge: '🌱 Any Milestone',
+              tagline: 'Personal Aspirations',
+              description:
+                'Whatever foundation you are building, create a personal Neev and receive unconditional support and blessings from those who believe in you.',
+              highlights: ['Shareable Link & QR', 'Optional 4-Digit PIN', 'Direct Bank Settlement'],
+              icon: <Compass className="w-6 h-6 text-neev-charcoal" />,
+              ctaLabel: 'Start a Personal Neev',
+              badgeBg: 'bg-slate-50 text-slate-800 border-slate-200',
+            },
+          ].map((cat) => (
+            <div
+              key={cat.key}
+              className="p-6 rounded-neev-xl bg-white border border-neev-ivory-border shadow-warm-sm hover:shadow-warm-md hover:border-neev-forest/40 transition-all flex flex-col justify-between group"
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
                   <div className="p-3 rounded-neev-md bg-neev-ivory-subtle border border-neev-ivory-border w-fit">
-                    {icon}
+                    {cat.icon}
                   </div>
-                  <h3 className="font-serif text-xl font-bold text-neev-charcoal">
-                    {config.title}
-                  </h3>
-                  <p className="text-xs text-neev-slate leading-relaxed">
-                    {config.tagline}
-                  </p>
-
-                  <div className="pt-3 border-t border-neev-ivory-subtle space-y-2 text-xs">
-                    <div className="flex items-center justify-between text-neev-slate">
-                      <span>Checkout CTA:</span>
-                      <strong className="text-neev-forest-800 text-[11px] font-semibold text-right">
-                        {config.primaryCtaLabel.replace(' (₹0 Fee)', '')}
-                      </strong>
-                    </div>
-                    <div className="flex items-center justify-between text-neev-slate">
-                      <span>Supporter Metric:</span>
-                      <strong className="text-neev-charcoal text-[11px] font-semibold">
-                        {config.supporterMetricLabel}
-                      </strong>
-                    </div>
-                    <div className="flex items-center justify-between text-neev-slate">
-                      <span>Receipt Title:</span>
-                      <strong className="text-neev-charcoal text-[11px] font-semibold text-right">
-                        {config.receiptTitle}
-                      </strong>
-                    </div>
-                  </div>
+                  <span className={cn('text-[11px] font-semibold px-2.5 py-0.5 rounded-full border', cat.badgeBg)}>
+                    {cat.badge}
+                  </span>
                 </div>
 
-                <div className="pt-6">
-                  <Link
-                    href={`/create?category=${key}`}
-                    className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-neev-md text-xs font-semibold text-neev-forest-800 bg-neev-forest-50 hover:bg-neev-forest-100 border border-neev-forest-100 transition-colors"
-                  >
-                    <span>Start {config.badgeLabel}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                <div>
+                  <h3 className="font-serif text-lg font-bold text-neev-charcoal group-hover:text-neev-forest transition-colors">
+                    {cat.title}
+                  </h3>
+                  <p className="text-xs font-semibold text-neev-forest-800 mt-0.5">
+                    {cat.tagline}
+                  </p>
+                </div>
+
+                <p className="text-xs text-neev-slate leading-relaxed">
+                  {cat.description}
+                </p>
+
+                {/* Highlights tags */}
+                <div className="pt-2 flex flex-wrap gap-1.5">
+                  {cat.highlights.map((h) => (
+                    <span
+                      key={h}
+                      className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-neev-ivory text-neev-charcoal border border-neev-ivory-border"
+                    >
+                      <CheckCircle2 className="w-2.5 h-2.5 text-neev-forest" />
+                      <span>{h}</span>
+                    </span>
+                  ))}
                 </div>
               </div>
-            );
-          })}
+
+              <div className="pt-6">
+                <Link
+                  href={`/create?category=${cat.key}`}
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-neev-md text-xs font-semibold text-neev-forest-800 bg-neev-forest-50 hover:bg-neev-forest hover:text-white border border-neev-forest-100 transition-all shadow-warm-sm"
+                >
+                  <span>{cat.ctaLabel}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
