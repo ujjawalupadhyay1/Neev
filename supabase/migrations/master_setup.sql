@@ -320,3 +320,4 @@ DROP POLICY IF EXISTS "Creators can delete their own pool media" ON storage.obje
 CREATE POLICY "Creators can delete their own pool media"
   ON storage.objects FOR DELETE
   USING (bucket_id = 'pool-media' AND (auth.uid() = owner OR auth.role() = 'service_role'));
+
