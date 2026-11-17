@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function POST(req: NextRequest) {
   try {
@@ -38,10 +39,45 @@ export async function POST(req: NextRequest) {
       ? originalExt
       : '.jpg';
 
-    const filename = `neev_photo_${Date.now()}_${Math.random().toString(36).substring(2, 8)}${safeExt}`;
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    const filename = `neev_${Date.now()}_${Math.random().toString(36).substring(2, 8)}${safeExt}`;
 
-    // Ensure directory exists
+    // 1. Try uploading to Supabase Storage if configured
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const hasLiveSupabase = supabaseUrl && !supabaseUrl.includes('placeholder');
+
+    if (hasLiveSupabase) {
+      try {
+        const supabase = createAdminClient();
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('pool-media')
+          .upload(filename, buffer, {
+            contentType: file.type || 'image/jpeg',
+            upsert: false,
+          });
+
+        if (!uploadError && uploadData) {
+          const { data: publicUrlData } = supabase.storage
+            .from('pool-media')
+            .getPublicUrl(uploadData.path);
+
+          return NextResponse.json({
+            success: true,
+            url: publicUrlData.publicUrl,
+            filename,
+            size: file.size,
+            mimeType: file.type,
+            storage: 'supabase',
+          });
+        } else {
+          console.warn('Supabase storage upload failed, falling back to local storage:', uploadError?.message);
+        }
+      } catch (storageErr) {
+        console.warn('Supabase storage exception, falling back to local storage:', storageErr);
+      }
+    }
+
+    // 2. Local File System Fallback
+    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
     await fs.mkdir(uploadDir, { recursive: true });
 
     const filePath = path.join(uploadDir, filename);
@@ -55,6 +91,7 @@ export async function POST(req: NextRequest) {
       filename,
       size: file.size,
       mimeType: file.type,
+      storage: 'local',
     });
   } catch (err: any) {
     console.error('File upload error:', err);
@@ -64,4 +101,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-

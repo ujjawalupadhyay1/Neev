@@ -2,6 +2,8 @@ import { WishPool, Contribution, PublicPoolStats } from '@/types';
 
 export interface EnrichedPool extends WishPool {
   creator_name: string;
+  creator_avatar?: string;
+  creator_kyc_status?: string;
   stats: PublicPoolStats;
 }
 

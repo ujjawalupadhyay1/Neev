@@ -3,6 +3,7 @@
 import { createPoolSchema, CreatePoolInput } from '@/lib/validations/pool';
 import { generatePoolSlug } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function createWishPoolAction(input: CreatePoolInput) {
   try {
@@ -16,21 +17,49 @@ export async function createWishPoolAction(input: CreatePoolInput) {
     }
 
     const data = parseResult.data;
-    const slug = generatePoolSlug(data.title);
+    let slug = generatePoolSlug(data.title);
 
     // If Supabase is connected to a real instance
-    if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')) {
-      const supabase = createClient();
-      const { data: authData, error: authError } = await supabase.auth.getUser();
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const isLive = supabaseUrl && !supabaseUrl.includes('placeholder');
 
-      if (authError || !authData.user) {
-        // In local development or guest mode, we can create or associate a demo profile
-        console.warn('No active authenticated session, proceeding with mock creator ID');
+    if (isLive) {
+      const supabase = createClient();
+      const adminSupabase = createAdminClient();
+
+      const { data: authData } = await supabase.auth.getUser();
+
+      let creatorId = authData?.user?.id;
+
+      // If user is not logged in, upsert a demo/guest profile to satisfy foreign key constraint
+      if (!creatorId) {
+        creatorId = '00000000-0000-0000-0000-000000000001';
+        await adminSupabase.from('profiles').upsert(
+          {
+            id: creatorId,
+            full_name: 'Neev Guest Creator',
+            email: 'guest@neev.upadhyay.tech',
+            kyc_status: 'verified',
+            bank_account_verified: true,
+          },
+          { onConflict: 'id' }
+        );
       }
 
-      const creatorId = authData?.user?.id || '00000000-0000-0000-0000-000000000001';
+      // Check for slug collision
+      const { data: existingPool } = await adminSupabase
+        .from('wish_pools')
+        .select('id')
+        .eq('slug', slug)
+        .maybeSingle();
 
-      const { data: newPool, error: insertError } = await supabase
+      if (existingPool) {
+        slug = `${slug}-${Math.random().toString(36).substring(2, 6)}`;
+      }
+
+      const clientToUse = authData?.user ? supabase : adminSupabase;
+
+      const { data: newPool, error: insertError } = await clientToUse
         .from('wish_pools')
         .insert({
           creator_id: creatorId,
@@ -80,4 +109,3 @@ export async function createWishPoolAction(input: CreatePoolInput) {
     return { success: false, error: err?.message || 'Failed to create pool' };
   }
 }
-

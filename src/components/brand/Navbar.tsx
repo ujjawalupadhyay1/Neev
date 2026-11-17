@@ -44,15 +44,22 @@ export function Navbar() {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-xs text-neev-forest-900 font-semibold px-3 py-1 rounded-full bg-[#E2ECE6] border border-[#BED4C7] shadow-warm-sm">
             <ShieldCheck className="w-3.5 h-3.5 text-neev-forest" />
             <span>Direct UPI • Non-Custodial</span>
           </div>
 
           <Link
+            href="/login"
+            className="text-xs font-semibold text-neev-forest-900 hover:text-neev-forest px-3 py-2 rounded-neev-md hover:bg-neev-forest-50 border border-transparent hover:border-neev-forest-100 transition-colors"
+          >
+            Sign In
+          </Link>
+
+          <Link
             href="/create"
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-neev-md text-sm font-semibold text-white bg-neev-terracotta hover:bg-neev-terracotta-hover active:bg-neev-terracotta-active shadow-warm-sm hover:shadow-warm-md transition-all duration-150"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-neev-md text-xs sm:text-sm font-semibold text-white bg-neev-terracotta hover:bg-neev-terracotta-hover active:bg-neev-terracotta-active shadow-warm-sm hover:shadow-warm-md transition-all duration-150"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Create a Neev</span>
@@ -98,14 +105,23 @@ export function Navbar() {
               <ShieldCheck className="w-4 h-4" />
               <span>Direct UPI • 100% Free & Non-Custodial</span>
             </div>
-            <Link
-              href="/create"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-neev-md font-semibold text-white bg-neev-terracotta"
-            >
-              <PlusCircle className="w-4 h-4" />
-              <span>Create a Neev</span>
-            </Link>
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center py-2.5 rounded-neev-md font-semibold text-xs text-neev-forest bg-neev-forest-50 border border-neev-forest-100"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/create"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-1.5 py-2.5 rounded-neev-md font-semibold text-xs text-white bg-neev-terracotta"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>Create Neev</span>
+              </Link>
+            </div>
           </div>
         </div>
       )}
