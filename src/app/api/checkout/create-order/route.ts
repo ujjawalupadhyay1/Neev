@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkoutSchema } from '@/lib/validations/checkout';
+import { getRazorpayClient } from '@/lib/razorpay/client';
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,48 +26,39 @@ export async function POST(req: NextRequest) {
     const timestamp = new Date().toISOString();
     const amountInPaise = Math.round(data.amount * 100);
 
-    const razorpayKeyId = process.env.RAZORPAY_KEY_ID;
-    const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET;
+    const razorpay = getRazorpayClient();
+    const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID;
 
-    let orderId = `order_neev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    let orderId = `order_test_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
     let isLiveGateway = false;
 
-    // If Razorpay live/test keys are provided in environment
-    if (razorpayKeyId && razorpayKeySecret && !razorpayKeyId.includes('your-')) {
+    // If Razorpay credentials are set (Test or Production)
+    if (razorpay) {
       try {
-        const authHeader = Buffer.from(`${razorpayKeyId}:${razorpayKeySecret}`).toString('base64');
-        const rzpResponse = await fetch('https://api.razorpay.com/v1/orders', {
-          method: 'POST',
-          headers: {
-            Authorization: `Basic ${authHeader}`,
-            'Content-Type': 'application/json',
+        const rzpOrder = await razorpay.orders.create({
+          amount: amountInPaise,
+          currency: 'INR',
+          receipt: `rcpt_${Date.now()}`,
+          notes: {
+            pool_id: data.poolId,
+            pool_slug: data.poolSlug,
+            contributor_name: data.contributorName,
+            relationship: data.relationship,
+            contributor_pan: data.contributorPan || 'N/A',
+            legal_declaration: 'Voluntary domestic gift under Sec 25 Indian Contract Act 1872',
           },
-          body: JSON.stringify({
-            amount: amountInPaise,
-            currency: 'INR',
-            receipt: `rcpt_${Date.now()}`,
-            notes: {
-              pool_id: data.poolId,
-              contributor_name: data.contributorName,
-              relationship: data.relationship,
-              contributor_pan: data.contributorPan || 'N/A',
-              legal_declaration: 'Voluntary domestic gift under Sec 25 Indian Contract Act',
-            },
-          }),
         });
 
-        if (rzpResponse.ok) {
-          const rzpOrder = await rzpResponse.json();
+        if (rzpOrder && rzpOrder.id) {
           orderId = rzpOrder.id;
           isLiveGateway = true;
         }
-      } catch (e) {
-        console.warn('Razorpay API request failed, using sandbox order session:', e);
+      } catch (e: any) {
+        console.warn('Razorpay order creation error, falling back to simulated session:', e?.message || e);
       }
     }
 
     // Direct UPI Deep Link parameters (NPCI standard format)
-    // Merchant/Creator UPI VPA
     const payeeVpa = process.env.NEXT_PUBLIC_MERCHANT_VPA || 'neev.upadhyaytech@hdfcbank';
     const payeeName = 'Neev Platform - Upadhyay Tech';
     const transactionNote = `Blessing for ${data.poolSlug.slice(0, 20)}`;
@@ -79,8 +71,10 @@ export async function POST(req: NextRequest) {
       success: true,
       orderId,
       amount: data.amount,
+      amountInPaise,
       currency: 'INR',
-      razorpayKeyId: isLiveGateway ? razorpayKeyId : null,
+      razorpayKeyId: razorpayKeyId || null,
+      isLiveGateway,
       upiUri,
       payeeVpa,
       payeeName,
@@ -99,4 +93,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
