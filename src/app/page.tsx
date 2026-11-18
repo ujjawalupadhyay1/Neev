@@ -17,14 +17,8 @@ export default function HomePage() {
   return (
     <div className="space-y-16 pb-20">
       {/* Hero Section — Tightened above-the-fold layout */}
-      <section className="relative overflow-hidden pt-4 pb-8 sm:pt-6 sm:pb-12 bg-warm-mesh border-b border-neev-ivory-border">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 sm:space-y-4">
-          {/* High-Contrast Trust Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neev-forest text-white shadow-warm-sm text-[11px] sm:text-xs font-semibold animate-fade-in border border-neev-forest-900/40">
-            <span className="w-2 h-2 rounded-full bg-neev-amber animate-pulse shrink-0" />
-            <span>100% Free • Direct Indian UPI Rails • Non-Custodial</span>
-          </div>
-
+      <section className="relative overflow-hidden pt-6 pb-8 sm:pt-8 sm:pb-12 bg-warm-mesh border-b border-neev-ivory-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           {/* Official Neev Emblem Hero Presentation */}
           <div className="py-0.5 flex justify-center">
             <Logo variant="stacked" size="md" showTagline={false} showCompanySubtitle={false} />
