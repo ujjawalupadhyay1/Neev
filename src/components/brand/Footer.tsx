@@ -40,23 +40,23 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-neev-slate">
               <li>
-                <Link href="/create?category=wedding" className="hover:text-neev-forest-800 transition-colors">
-                  Wedding & Nuptials (Shagun)
+                <Link href="/create?category=universal" className="hover:text-neev-forest-800 transition-colors">
+                  Universal Wishlists & Dreams
                 </Link>
               </li>
               <li>
                 <Link href="/create?category=education" className="hover:text-neev-forest-800 transition-colors">
-                  Education & Laptops
+                  Education & Academic Goals
                 </Link>
               </li>
               <li>
                 <Link href="/create?category=milestone" className="hover:text-neev-forest-800 transition-colors">
-                  Home Down Payments & Travel
+                  Home Foundations & Milestones
                 </Link>
               </li>
               <li>
-                <Link href="/create?category=universal" className="hover:text-neev-forest-800 transition-colors">
-                  Universal Neev Wishlist
+                <Link href="/create?category=wedding" className="hover:text-neev-forest-800 transition-colors">
+                  Weddings & Celebrations
                 </Link>
               </li>
             </ul>
@@ -75,7 +75,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/legal#gifting-policy" className="hover:text-neev-forest-800 transition-colors">
-                  Gift & Contribution Policy
+                  Contribution & Gift Policy
                 </Link>
               </li>
               <li>
@@ -103,7 +103,7 @@ export function Footer() {
             </p>
           </div>
           <div className="flex items-center gap-1 text-[11px]">
-            <span>Crafted for Indian Milestones with</span>
+            <span>Crafted for Indian Wishes & Milestones with</span>
             <HeartHandshake className="w-3.5 h-3.5 text-neev-terracotta inline" />
             <span>in Bharat</span>
           </div>
@@ -112,4 +112,3 @@ export function Footer() {
     </footer>
   );
 }
-

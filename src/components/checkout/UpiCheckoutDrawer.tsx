@@ -445,15 +445,15 @@ export function UpiCheckoutDrawer({
                 </div>
               )}
 
-              {/* Blessing Message */}
+              {/* Message */}
               <div className="space-y-1">
                 <label className="font-semibold text-neev-charcoal text-xs">
-                  Your Blessing or Well-Wish Message (Optional)
+                  Your Encouraging Message or Well-Wish (Optional)
                 </label>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Warm blessings and heartiest congratulations on your new beginning..."
+                  placeholder="Leave an encouraging message or warm wishes for this milestone..."
                   rows={2}
                   maxLength={500}
                   className="w-full px-3 py-2 rounded-neev-sm border border-neev-ivory-border focus:border-neev-forest text-xs outline-none resize-none"
@@ -616,7 +616,7 @@ export function UpiCheckoutDrawer({
                   <CheckCircle2 className="w-7 h-7" />
                 </div>
                 <h4 className="font-serif text-xl font-bold text-neev-charcoal">
-                  Blessings & Shagun Delivered!
+                  Contribution Successfully Sent!
                 </h4>
                 <p className="text-xs text-neev-slate">
                   Settled directly into the creator&apos;s bank account. Here is your official receipt.

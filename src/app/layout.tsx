@@ -20,13 +20,13 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: 'Neev — Apno Ke Aashirvaad Se, Sapno Ki Neev',
   description:
-    'Universal Indian social wishlist and group-gifting platform. Direct UPI contributions for weddings, education, homes, and life dreams with ₹0 fee and strict creator-only privacy.',
+    'Universal Indian wishlist and milestone contribution platform. Direct UPI contributions for personal aspirations, education, creative projects, and life dreams with ₹0 fee and strict creator-only privacy.',
   keywords: [
     'Neev',
-    'Indian wedding shagun online',
-    'Aashirvaad registry',
+    'online wish pool India',
+    'milestone contribution platform',
     'UPI group gifting',
-    'milestone wish pool',
+    'wishlist registry India',
     'education fund India',
     'direct settlement registry',
   ],
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Neev — Apno Ke Aashirvaad Se, Sapno Ki Neev',
     description:
-      'Building the foundation of dreams through the blessings of your own. Direct UPI contributions with zero platform fee and complete privacy.',
+      'Building the foundation of dreams through the blessings of your own. Direct UPI contributions for any wish or goal with zero platform fee and complete privacy.',
     siteName: 'Neev',
     locale: 'en_IN',
     type: 'website',
@@ -57,4 +57,3 @@ export default function RootLayout({
     </html>
   );
 }
-

@@ -1,25 +1,25 @@
 import { CategoryCopyConfig, PoolCategory } from '@/types';
 
 export const CATEGORY_COPY_MAP: Record<PoolCategory, CategoryCopyConfig> = {
-  wedding: {
-    key: 'wedding',
-    title: 'Wedding & Nuptials',
-    subtitle: 'Blessings, Shagun & New Beginnings',
-    tagline: 'Bless the newly-weds as they embark on their lifelong journey together.',
-    primaryCtaLabel: 'Send Aashirvaad & Shagun (₹0 Fee)',
-    supporterMetricLabel: 'Blessings',
-    receiptTitle: 'Aashirvaad & Shagun Receipt',
+  universal: {
+    key: 'universal',
+    title: 'Universal Neev',
+    subtitle: 'Any Personal Dream, Wish or Project',
+    tagline: 'Laying the foundation of dreams through the blessings and backing of your own.',
+    primaryCtaLabel: 'Contribute to This Wish (₹0 Fee)',
+    supporterMetricLabel: 'Contributors',
+    receiptTitle: 'Neev Contribution Receipt',
     defaultStoryPrompt:
-      'We are beginning our journey together! Instead of physical boxed gifts, your love, warm blessings, and shagun will help us build our new home and future.',
-    amountPresets: [2100, 5100, 11000, 21000, 51000],
+      'Every big milestone needs a strong foundation. Support this journey with your blessings, contribution, and encouragement.',
+    amountPresets: [1000, 2000, 5000, 10000, 20000],
     sampleTitles: [
-      'Aashirvaad for Rahul & Priya’s New Beginning',
-      'The Wedding Shagun Pool for Aditi & Vikram',
-      'Blessings for Kabir & Tanya’s Sacred Union',
+      'Building the Foundation for Our Dream Project',
+      'Collective Blessing Pool for Our Creative Venture',
+      'Support My Next Chapter & Life Milestone',
     ],
-    bannerGradient: 'from-[#FAF2EB] via-[#FCEAE3] to-[#FAF8F5]',
-    badgeLabel: 'Aashirvaad & Shagun',
-    emoji: '💍',
+    bannerGradient: 'from-[#F5F2EB] via-[#ECE5D6] to-[#FAF8F5]',
+    badgeLabel: 'Any Wish or Milestone',
+    emoji: '🌱',
   },
   education: {
     key: 'education',
@@ -61,30 +61,30 @@ export const CATEGORY_COPY_MAP: Record<PoolCategory, CategoryCopyConfig> = {
     badgeLabel: 'Milestone Wish',
     emoji: '✨',
   },
-  universal: {
-    key: 'universal',
-    title: 'Universal Neev',
-    subtitle: 'Any Personal Dream or Collective Initiative',
-    tagline: 'Laying the foundation of dreams through the blessings of your own.',
-    primaryCtaLabel: 'Contribute to This Neev (₹0 Fee)',
-    supporterMetricLabel: 'Supporters',
-    receiptTitle: 'Neev Contribution Receipt',
+  wedding: {
+    key: 'wedding',
+    title: 'Weddings & Celebrations',
+    subtitle: 'Blessings & New Beginnings',
+    tagline: 'Celebrate the newly-weds with heartfelt blessings as they start their new journey.',
+    primaryCtaLabel: 'Contribute with Blessings (₹0 Fee)',
+    supporterMetricLabel: 'Contributors',
+    receiptTitle: 'Contribution & Blessings Receipt',
     defaultStoryPrompt:
-      'Every big milestone needs a strong foundation. Support this journey with your blessings and encouragement.',
-    amountPresets: [1000, 2000, 5000, 10000, 20000],
+      'We are beginning our journey together! Instead of physical boxed gifts, your love, warm blessings, and contributions will help us build our new home and future.',
+    amountPresets: [2100, 5100, 11000, 21000, 51000],
     sampleTitles: [
-      'Building the Foundation for Our Dream Project',
-      'Collective Blessing Pool for Our Family Venture',
-      'Support Our Next Chapter in Life',
+      'Blessings for Rahul & Priya’s New Beginning',
+      'The Wedding Milestone Pool for Aditi & Vikram',
+      'Blessings for Kabir & Tanya’s Union',
     ],
-    bannerGradient: 'from-[#F5F2EB] via-[#ECE5D6] to-[#FAF8F5]',
-    badgeLabel: 'Universal Neev',
-    emoji: '🌱',
+    bannerGradient: 'from-[#FAF2EB] via-[#FCEAE3] to-[#FAF8F5]',
+    badgeLabel: 'Weddings & Celebrations',
+    emoji: '💍',
   },
 };
 
 /**
- * Returns category-adaptive UI copy without leaking wedding-specific copy into education/universal pools.
+ * Returns category-adaptive UI copy without leaking celebration-specific copy into education/universal pools.
  */
 export function getCategoryCopy(category: PoolCategory = 'universal'): CategoryCopyConfig {
   return CATEGORY_COPY_MAP[category] || CATEGORY_COPY_MAP.universal;
@@ -99,4 +99,3 @@ export const CONTRIBUTOR_RELATIONSHIPS = [
   { value: 'Colleague', label: 'Colleague / Coworker' },
   { value: 'Well-Wisher', label: 'Well-Wisher' },
 ] as const;
-

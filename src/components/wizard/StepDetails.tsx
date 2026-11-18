@@ -137,7 +137,7 @@ export function StepDetails({
             className="w-full px-4 py-2.5 rounded-neev-md border border-neev-ivory-border focus:border-neev-forest focus:ring-2 focus:ring-neev-forest-100 text-sm text-neev-charcoal outline-none transition-all"
           />
           <p className="text-[11px] text-neev-slate">
-            Weddings, exam results, milestone celebrations, or departure dates.
+            Target milestone date, admission deadline, launch day, or celebration.
           </p>
         </div>
 

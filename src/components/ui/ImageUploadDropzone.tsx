@@ -249,13 +249,13 @@ export function ImageUploadDropzone({
               Click to upload your milestone photo or drag & drop
             </p>
             <p className="text-xs text-neev-slate">
-              Upload wedding photos, college admission letter, laptop quotation, or house blueprint (PNG, JPG, WEBP, up to 8MB)
+              Upload your dream vision, college admission letter, project proposal, or photo (PNG, JPG, WEBP, up to 8MB)
             </p>
           </div>
 
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-neev-ivory-border text-[11px] font-semibold text-neev-forest-800">
             <ImageIcon className="w-3.5 h-3.5 text-neev-amber" />
-            <span>Show supporters what their blessings are building</span>
+            <span>Show supporters what their contributions are building</span>
           </div>
         </div>
       )}

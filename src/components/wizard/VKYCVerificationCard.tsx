@@ -295,7 +295,7 @@ export function VKYCVerificationCard({
               type="text"
               value={proofNotes}
               onChange={(e) => onChange('proofNotes', e.target.value)}
-              placeholder="Optional: Brief note for our verification team (e.g. Wedding date 15 Dec in Jaipur)"
+              placeholder="Optional: Brief note for our verification team (e.g. Admission date or milestone goal)"
               className="w-full px-3 py-2 rounded-neev-sm border border-neev-ivory-border text-xs text-neev-charcoal placeholder:text-neev-slate/70 outline-none"
             />
           </div>

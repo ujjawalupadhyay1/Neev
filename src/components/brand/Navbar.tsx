@@ -1,15 +1,58 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Logo } from './Logo';
-import { PlusCircle, ShieldCheck, Sparkles, Menu, X } from 'lucide-react';
+import { PlusCircle, ShieldCheck, Menu, X, LogOut, User as UserIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { createClient } from '@/lib/supabase/client';
+import { signOutAction } from '@/app/actions/auth';
+import type { User } from '@supabase/supabase-js';
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    // Check active session
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    // Listen to real-time auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      setUser(null);
+      await signOutAction();
+    } catch (e: any) {
+      if (e?.message?.includes('NEXT_REDIRECT') || e?.digest?.includes('NEXT_REDIRECT')) {
+        return;
+      }
+      router.push('/');
+      router.refresh();
+    }
+  };
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -50,12 +93,38 @@ export function Navbar() {
             <span>Direct UPI • Non-Custodial</span>
           </div>
 
-          <Link
-            href="/login"
-            className="text-xs font-semibold text-neev-forest-900 hover:text-neev-forest px-3 py-2 rounded-neev-md hover:bg-neev-forest-50 border border-transparent hover:border-neev-forest-100 transition-colors"
-          >
-            Sign In
-          </Link>
+          {!loading && (
+            user ? (
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/dashboard"
+                  className="flex items-center gap-1.5 text-xs font-semibold text-neev-forest-900 hover:text-neev-forest px-3 py-2 rounded-neev-md hover:bg-neev-forest-50 border border-transparent hover:border-neev-forest-100 transition-colors"
+                >
+                  <UserIcon className="w-3.5 h-3.5 text-neev-forest" />
+                  <span className="max-w-[120px] truncate">
+                    {user.user_metadata?.full_name || user.email?.split('@')[0] || 'My Account'}
+                  </span>
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="flex items-center gap-1 text-xs font-semibold text-neev-slate hover:text-red-700 px-2.5 py-2 rounded-neev-md hover:bg-red-50 border border-transparent hover:border-red-100 transition-colors"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="text-xs font-semibold text-neev-forest-900 hover:text-neev-forest px-3 py-2 rounded-neev-md hover:bg-neev-forest-50 border border-transparent hover:border-neev-forest-100 transition-colors"
+              >
+                Sign In
+              </Link>
+            )
+          )}
 
           <Link
             href="/create"
@@ -106,13 +175,27 @@ export function Navbar() {
               <span>Direct UPI • 100% Free & Non-Custodial</span>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <Link
-                href="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center py-2.5 rounded-neev-md font-semibold text-xs text-neev-forest bg-neev-forest-50 border border-neev-forest-100"
-              >
-                Sign In
-              </Link>
+              {user ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleSignOut();
+                  }}
+                  className="flex items-center justify-center gap-1.5 py-2.5 rounded-neev-md font-semibold text-xs text-red-600 bg-red-50 border border-red-100"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign Out</span>
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center py-2.5 rounded-neev-md font-semibold text-xs text-neev-forest bg-neev-forest-50 border border-neev-forest-100"
+                >
+                  Sign In
+                </Link>
+              )}
               <Link
                 href="/create"
                 onClick={() => setMobileMenuOpen(false)}
@@ -128,4 +211,3 @@ export function Navbar() {
     </header>
   );
 }
-

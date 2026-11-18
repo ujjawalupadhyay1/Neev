@@ -73,7 +73,7 @@ export function StepPrivacy({
               </div>
               <div>
                 <h3 className="font-serif text-lg font-bold text-neev-charcoal">
-                  Invite-Only (Recommended for Weddings & Family)
+                  Invite-Only (Private & Close Circles)
                 </h3>
                 <p className="text-xs text-neev-slate font-medium">
                   Unlisted from search & explore. Accessible only via secret link or WhatsApp QR.

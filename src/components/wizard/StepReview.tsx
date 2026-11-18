@@ -133,7 +133,7 @@ export function StepReview({
           {/* Story */}
           <div className="space-y-1">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-neev-slate">
-              Story & Blessings
+              Milestone Story & Vision
             </h4>
             <p className="text-sm text-neev-charcoal/90 leading-relaxed whitespace-pre-wrap">
               {story || categoryConfig.defaultStoryPrompt}

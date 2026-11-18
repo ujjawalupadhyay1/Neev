@@ -155,10 +155,10 @@ export function ExploreClient({ initialPools }: ExploreClientProps) {
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
             {[
               { key: 'all', label: 'All Categories', emoji: '✨' },
-              { key: 'wedding', label: 'Weddings & Shagun', emoji: '💍' },
+              { key: 'universal', label: 'Universal Dreams', emoji: '🌱' },
               { key: 'education', label: 'Education & Career', emoji: '🎓' },
               { key: 'milestone', label: 'Milestones & Home', emoji: '🏡' },
-              { key: 'universal', label: 'Universal Dreams', emoji: '🌱' },
+              { key: 'wedding', label: 'Weddings & Celebrations', emoji: '💍' },
             ].map((cat) => {
               const isSelected = selectedCategory === cat.key;
               return (
@@ -198,7 +198,7 @@ export function ExploreClient({ initialPools }: ExploreClientProps) {
                 Be the First to Lay a Neev
               </h2>
               <p className="text-xs sm:text-sm text-neev-slate max-w-md mx-auto leading-relaxed">
-                No public wish pools have been created yet. Be the first to start a milestone pool for your wedding, education, or dream project and receive direct UPI blessings with ₹0 platform fee.
+                No public wish pools have been created yet. Be the first to start a milestone pool for your education, personal dream, or life milestone and receive direct UPI contributions with ₹0 platform fee.
               </p>
             </div>
 

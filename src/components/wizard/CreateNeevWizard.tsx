@@ -28,9 +28,9 @@ export function CreateNeevWizard() {
   // Initial category from query param if provided
   const queryCat = searchParams.get('category') as PoolCategory;
   const initialCategory: PoolCategory =
-    queryCat && ['wedding', 'education', 'milestone', 'universal'].includes(queryCat)
+    queryCat && ['universal', 'education', 'milestone', 'wedding'].includes(queryCat)
       ? queryCat
-      : 'wedding';
+      : 'universal';
 
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -155,7 +155,7 @@ export function CreateNeevWizard() {
             Your Neev Has Been Created!
           </h2>
           <p className="text-sm text-neev-slate">
-            The foundation is laid. Share your private link with loved ones to receive their blessings and shagun directly into your bank account.
+            The foundation is laid. Share your link with loved ones and supporters to receive contributions and blessings directly into your bank account.
           </p>
         </div>
 

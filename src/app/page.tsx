@@ -9,12 +9,9 @@ import {
   Lock,
   ArrowRight,
   CheckCircle2,
-  QrCode,
   Banknote,
-  Gift,
 } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
-import { cn } from '@/lib/utils';
 
 export default function HomePage() {
   return (
@@ -22,7 +19,7 @@ export default function HomePage() {
       {/* Hero Section — Tightened above-the-fold layout */}
       <section className="relative overflow-hidden pt-4 pb-8 sm:pt-6 sm:pb-12 bg-warm-mesh border-b border-neev-ivory-border">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 sm:space-y-4">
-          {/* High-Contrast Trust Pill: White text on Deep Forest Green */}
+          {/* High-Contrast Trust Pill */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neev-forest text-white shadow-warm-sm text-[11px] sm:text-xs font-semibold animate-fade-in border border-neev-forest-900/40">
             <span className="w-2 h-2 rounded-full bg-neev-amber animate-pulse shrink-0" />
             <span>100% Free • Direct Indian UPI Rails • Non-Custodial</span>
@@ -42,11 +39,11 @@ export default function HomePage() {
               &ldquo;Apno Ke Aashirvaad Se, Sapno Ki Neev&rdquo;
             </p>
             <p className="text-xs sm:text-sm text-neev-slate max-w-xl mx-auto pt-1 leading-relaxed">
-              A universal Indian social wishlist and group-gifting platform. Pool contributions for weddings, higher education, and personal dreams with zero fees and complete privacy.
+              A universal wishlist and milestone contribution platform. Pool contributions for every dream, milestone, project, or celebration with zero fees and complete privacy.
             </p>
           </div>
 
-          {/* Primary CTA Buttons (Both above the fold on desktop and mobile) */}
+          {/* Primary CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Link
               href="/create"
@@ -73,7 +70,7 @@ export default function HomePage() {
               <div>
                 <h2 className="text-xs font-bold text-neev-charcoal">₹0 Platform Fee</h2>
                 <p className="text-xs text-neev-slate mt-0.5">
-                  100% of guest shagun & gifts settle directly into your bank account.
+                  100% of every contribution settles directly into your bank account. Zero cuts, zero commissions.
                 </p>
               </div>
             </div>
@@ -83,9 +80,9 @@ export default function HomePage() {
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-xs font-bold text-neev-charcoal">Non-Custodial Flow</h2>
+                <h2 className="text-xs font-bold text-neev-charcoal">Direct Bank Settlement</h2>
                 <p className="text-xs text-neev-slate mt-0.5">
-                  Powered by RBI/NPCI rails. Neev never holds or pools user funds.
+                  Powered by Indian UPI rails. Neev never holds user funds — direct to your verified bank.
                 </p>
               </div>
             </div>
@@ -95,9 +92,9 @@ export default function HomePage() {
                 <Lock className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-xs font-bold text-neev-charcoal">Private Contributor Amounts</h2>
+                <h2 className="text-xs font-bold text-neev-charcoal">100% Private Ledger</h2>
                 <p className="text-xs text-neev-slate mt-0.5">
-                  Individual rupee gifts are strictly confidential and creator-only.
+                  Individual contribution amounts are strictly confidential and visible only in your private creator ledger.
                 </p>
               </div>
             </div>
@@ -109,35 +106,35 @@ export default function HomePage() {
       <section id="categories" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center space-y-3 max-w-2xl mx-auto">
           <span className="text-xs font-bold uppercase tracking-widest text-neev-forest-800">
-            Lifelong Milestones
+            Every Wish & Milestone
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neev-charcoal">
-            Designed for Life’s Greatest Beginnings
+            Built for Every Dream You Want to Achieve
           </h2>
           <p className="text-xs sm:text-sm text-neev-slate leading-relaxed">
-            From sacred wedding shagun to college tuition and first home down payments — celebrate every turning point with direct UPI blessings and ₹0 platform fee.
+            From personal aspirations and creative projects to education, home foundations, and life milestones — invite contributions for every wish with direct UPI and ₹0 platform fee.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
-              key: 'wedding',
-              title: 'Weddings & Nuptials',
-              badge: '💍 Weddings',
-              tagline: 'Aashirvaad & Shagun',
+              key: 'universal',
+              title: 'Universal Dreams',
+              badge: '🌱 Any Wish',
+              tagline: 'Personal Aspirations & Goals',
               description:
-                'Invite loved ones to send traditional shagun directly into your bank via UPI, replacing awkward cash envelopes and redundant boxed gifts.',
-              highlights: ['Direct UPI Shagun', 'Confidential Rupee Gifts', '1-Page PDF Receipt'],
-              icon: <HeartHandshake className="w-6 h-6 text-neev-terracotta" />,
-              ctaLabel: 'Start Wedding Shagun',
-              badgeBg: 'bg-rose-50 text-rose-800 border-rose-200',
+                'Whatever foundation you are building, create a personal wish pool and receive unconditional contributions and blessings from those who believe in you.',
+              highlights: ['Shareable Link & QR', 'Optional 4-Digit PIN', 'Direct Bank Settlement'],
+              icon: <Compass className="w-6 h-6 text-neev-charcoal" />,
+              ctaLabel: 'Start a Wish Pool',
+              badgeBg: 'bg-slate-50 text-slate-800 border-slate-200',
             },
             {
               key: 'education',
               title: 'Education & Career',
               badge: '🎓 Education',
-              tagline: 'Academic Grants & Laptops',
+              tagline: 'Academic Grants & Tools',
               description:
                 'Empower your learning goals. Pool support from family, mentors, and well-wishers for tuition, study laptops, thesis workstations, or entrance fees.',
               highlights: ['Laptops & Tuition Funds', 'Direct Student Grants', '100% Free for Students'],
@@ -151,23 +148,23 @@ export default function HomePage() {
               badge: '🏡 Life Milestones',
               tagline: 'Home Foundations & Wishes',
               description:
-                'Celebrate life’s major chapters. Rally collective blessings for your first home down payment, parenthood, family relocations, or 30th birthday.',
+                'Celebrate life’s major chapters. Rally collective support for your first home down payment, parenthood, family relocations, or special milestones.',
               highlights: ['First Home Down Payment', 'Collective Family Love', 'CA Audit Ledger'],
               icon: <Sparkles className="w-6 h-6 text-neev-amber" />,
               ctaLabel: 'Start Milestone Pool',
               badgeBg: 'bg-amber-50 text-amber-800 border-amber-200',
             },
             {
-              key: 'universal',
-              title: 'Universal Dreams',
-              badge: '🌱 Any Milestone',
-              tagline: 'Personal Aspirations',
+              key: 'wedding',
+              title: 'Celebrations & Nuptials',
+              badge: '💍 Celebrations',
+              tagline: 'Aashirvaad & Blessings',
               description:
-                'Whatever foundation you are building, create a personal Neev and receive unconditional support and blessings from those who believe in you.',
-              highlights: ['Shareable Link & QR', 'Optional 4-Digit PIN', 'Direct Bank Settlement'],
-              icon: <Compass className="w-6 h-6 text-neev-charcoal" />,
-              ctaLabel: 'Start a Personal Neev',
-              badgeBg: 'bg-slate-50 text-slate-800 border-slate-200',
+                'Invite loved ones to contribute directly into your bank via UPI, replacing awkward cash envelopes and redundant boxed gifts.',
+              highlights: ['Direct UPI Contributions', 'Confidential Gift Amounts', '1-Page PDF Receipt'],
+              icon: <HeartHandshake className="w-6 h-6 text-neev-terracotta" />,
+              ctaLabel: 'Start Celebration Pool',
+              badgeBg: 'bg-rose-50 text-rose-800 border-rose-200',
             },
           ].map((cat) => (
             <div
@@ -179,23 +176,20 @@ export default function HomePage() {
                   <div className="p-3 rounded-neev-md bg-neev-ivory-subtle border border-neev-ivory-border w-fit">
                     {cat.icon}
                   </div>
-                  <span className={cn('text-[11px] font-semibold px-2.5 py-0.5 rounded-full border', cat.badgeBg)}>
+                  <span
+                    className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${cat.badgeBg}`}
+                  >
                     {cat.badge}
                   </span>
                 </div>
 
-                <div>
-                  <h3 className="font-serif text-lg font-bold text-neev-charcoal group-hover:text-neev-forest transition-colors">
+                <div className="space-y-1">
+                  <h3 className="font-serif text-lg font-bold text-neev-charcoal group-hover:text-neev-forest-800 transition-colors">
                     {cat.title}
                   </h3>
-                  <p className="text-xs font-semibold text-neev-forest-800 mt-0.5">
-                    {cat.tagline}
-                  </p>
+                  <p className="text-xs font-semibold text-neev-forest-700">{cat.tagline}</p>
+                  <p className="text-xs text-neev-slate leading-relaxed pt-1">{cat.description}</p>
                 </div>
-
-                <p className="text-xs text-neev-slate leading-relaxed">
-                  {cat.description}
-                </p>
 
                 {/* Highlights tags */}
                 <div className="pt-2 flex flex-wrap gap-1.5">
@@ -245,10 +239,10 @@ export default function HomePage() {
               1
             </span>
             <h3 className="font-serif text-base font-bold text-neev-charcoal">
-              Create Your Milestone
+              Create Your Wish Pool
             </h3>
             <p className="text-xs text-neev-slate leading-relaxed">
-              Choose your category, set your target amount in ₹, and write your story. Takes under 2 minutes.
+              Choose your goal or category, set your target amount in ₹, and share your vision. Takes under 2 minutes.
             </p>
           </div>
 
@@ -260,7 +254,7 @@ export default function HomePage() {
               Set Privacy & Share
             </h3>
             <p className="text-xs text-neev-slate leading-relaxed">
-              Keep it invite-only with an optional 4-digit PIN for family weddings, or list publicly with KYC.
+              Keep it private with an optional 4-digit PIN for close circles, or list publicly to reach supporters everywhere.
             </p>
           </div>
 
@@ -272,7 +266,7 @@ export default function HomePage() {
               Direct UPI Settlement
             </h3>
             <p className="text-xs text-neev-slate leading-relaxed">
-              Guests pay seamlessly via GPay, PhonePe, or Paytm. Funds route straight to your bank account with ₹0 platform fee.
+              Supporters pay seamlessly via GPay, PhonePe, or Paytm. Funds route straight to your bank account with ₹0 platform fee.
             </p>
           </div>
 
@@ -284,7 +278,7 @@ export default function HomePage() {
               Private Ledger & Receipts
             </h3>
             <p className="text-xs text-neev-slate leading-relaxed">
-              Individual gift amounts stay 100% confidential. Donors receive 1-page PDF receipts with NPCI UTR numbers.
+              Individual contribution amounts stay 100% confidential. Contributors receive 1-page PDF receipts with NPCI UTR numbers.
             </p>
           </div>
         </div>
@@ -299,7 +293,7 @@ export default function HomePage() {
               Ready to build the foundation for your dream?
             </h2>
             <p className="text-neev-forest-100 text-sm max-w-xl mx-auto">
-              Create your milestone pool in under 2 minutes. Receive direct UPI blessings with zero platform fee.
+              Create your wish pool in under 2 minutes. Receive direct UPI contributions with zero platform fee.
             </p>
           </div>
           <div className="relative z-10">
@@ -316,4 +310,3 @@ export default function HomePage() {
     </div>
   );
 }
-

@@ -15,8 +15,8 @@ export function StepCategory({
 }: StepCategoryProps) {
   const categories: { key: PoolCategory; icon: React.ReactNode }[] = [
     {
-      key: 'wedding',
-      icon: <HeartHandshake className="w-6 h-6 text-neev-terracotta" />,
+      key: 'universal',
+      icon: <Compass className="w-6 h-6 text-neev-charcoal" />,
     },
     {
       key: 'education',
@@ -27,8 +27,8 @@ export function StepCategory({
       icon: <Sparkles className="w-6 h-6 text-neev-amber" />,
     },
     {
-      key: 'universal',
-      icon: <Compass className="w-6 h-6 text-neev-charcoal" />,
+      key: 'wedding',
+      icon: <HeartHandshake className="w-6 h-6 text-neev-terracotta" />,
     },
   ];
 

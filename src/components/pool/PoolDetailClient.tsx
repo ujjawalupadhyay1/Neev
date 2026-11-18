@@ -287,11 +287,11 @@ export function PoolDetailClient({ pool, initialMessages = [] }: PoolDetailClien
             </div>
           </div>
 
-          {/* Public Blessings & Well-Wishes Feed (Amounts Hidden) */}
+          {/* Public Supporter Messages Feed (Amounts Hidden) */}
           <div className="bg-white rounded-neev-xl border border-neev-ivory-border p-6 sm:p-8 space-y-5 shadow-warm-sm">
             <div className="flex items-center justify-between border-b border-neev-ivory-border pb-3">
               <h3 className="font-serif text-lg font-bold text-neev-charcoal flex items-center gap-2">
-                <span>Loved Ones&apos; Blessings</span>
+                <span>Messages & Well-Wishes</span>
                 <span className="text-xs px-2 py-0.5 rounded-full bg-neev-forest-50 text-neev-forest font-sans">
                   {initialMessages.length}
                 </span>
@@ -304,7 +304,7 @@ export function PoolDetailClient({ pool, initialMessages = [] }: PoolDetailClien
 
             {initialMessages.length === 0 ? (
               <p className="text-xs text-neev-slate py-4 text-center">
-                Be the first to send your warm blessings and shagun!
+                Be the first to contribute and leave an encouraging message!
               </p>
             ) : (
               <div className="divide-y divide-neev-ivory-border">
