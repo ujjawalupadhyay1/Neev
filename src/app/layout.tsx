@@ -49,7 +49,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${plusJakartaSans.variable}`}>
-      <body className="min-h-screen bg-neev-ivory text-neev-charcoal font-sans antialiased flex flex-col selection:bg-neev-terracotta-light selection:text-neev-terracotta">
+      <body className="min-h-screen bg-neev-ivory text-neev-charcoal font-sans antialiased flex flex-col selection:bg-neev-forest selection:text-white">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

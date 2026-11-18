@@ -49,8 +49,8 @@ const config: Config = {
             secondary: "#333A36",
           },
           slate: {
-            DEFAULT: "#5C6660",
-            light: "#78847D",
+            DEFAULT: "#4D5752",
+            light: "#6D7973",
             muted: "#9AA59F",
           },
         },
