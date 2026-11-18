@@ -15,32 +15,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Brilliant High-Contrast Text Selection */
+/* Light, Soft, Glare-Free Text Selection */
 ::selection {
-  background-color: #1B4332;
-  color: #FAF8F5;
+  background-color: #C8E7D8;
+  color: #10281E;
 }
 
 ::-moz-selection {
-  background-color: #1B4332;
-  color: #FAF8F5;
+  background-color: #C8E7D8;
+  color: #10281E;
 }
 
-/* Luminous Amber Highlight on Dark Brand Surfaces */
+/* Light Translucent Highlight on Dark Brand Surfaces */
 .bg-neev-forest ::selection,
 .bg-neev-forest-900 ::selection,
 .bg-neev-charcoal ::selection,
 footer ::selection {
-  background-color: #D99B26;
-  color: #10281E;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
 }
 
 .bg-neev-forest ::-moz-selection,
 .bg-neev-forest-900 ::-moz-selection,
 .bg-neev-charcoal ::-moz-selection,
 footer ::-moz-selection {
-  background-color: #D99B26;
-  color: #10281E;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
 }
 
 /* Custom Scrollbar for Warm Ivory theme */
