@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Logo } from './Logo';
-import { PlusCircle, ShieldCheck, Menu, X, LogOut, User as UserIcon } from 'lucide-react';
+import { PlusCircle, Menu, X, LogOut, User as UserIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/client';
 import { signOutAction } from '@/app/actions/auth';
@@ -88,11 +88,6 @@ export function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs text-neev-forest-900 font-semibold px-3 py-1 rounded-full bg-[#E2ECE6] border border-[#BED4C7] shadow-warm-sm">
-            <ShieldCheck className="w-3.5 h-3.5 text-neev-forest" />
-            <span>Direct UPI • Non-Custodial</span>
-          </div>
-
           {!loading && (
             user ? (
               <div className="flex items-center gap-2">
@@ -170,10 +165,6 @@ export function Navbar() {
             ))}
           </nav>
           <div className="pt-2 border-t border-neev-ivory-border flex flex-col gap-3">
-            <div className="flex items-center gap-2 text-xs text-neev-forest-700">
-              <ShieldCheck className="w-4 h-4" />
-              <span>Direct UPI • 100% Free & Non-Custodial</span>
-            </div>
             <div className="grid grid-cols-2 gap-2">
               {user ? (
                 <button
